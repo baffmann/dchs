@@ -187,6 +187,10 @@ function select(btn) {
 
 function reset() {
     var resetUrl = "/api/reset"
+    //also deactivate players in the frontend otherwise, player is active=true when gamemode (301/501) is changed 
+    $.each(allPlayers, function (index) {
+        allPlayers[index].active = false;
+    });
     $.ajax({
         type: "POST",
         url: resetUrl,

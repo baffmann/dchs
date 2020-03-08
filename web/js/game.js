@@ -256,12 +256,10 @@ function oopsImadeAmistake() {
                 $("#dart1").html("-");
                 displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
         } else if (typeof currentplayer.score[round][0] == 'undefined') {
-                var roundElements = [];
-                roundElements = currentplayer.score;
-                var popped = roundElements.pop();
+                console.log(currentplayer.score);
+                var popped = currentplayer.score.pop();
                 console.log(popped);
                 console.log(round);
-                currentplayer.score = roundElements;
                 sendUpdate();
                 index -= 1;
                 if (index < 0) {
