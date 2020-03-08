@@ -176,10 +176,9 @@ function next(playerid) {
                                 if (currentplayer.score == null) {
                                         rounds.push(scores);
                                         currentplayer.score = rounds;
-                                } else {
-                                        //rounds = currentplayer.score;
-                                        //rounds.push(scores);
-                                        //currentplayer.score = rounds;
+                                } else if (typeof currentplayer.score[round] == 'undefined'){ 
+                                        //only add score array if player is in new round
+                                        //array is already defined when delete button was used
                                         currentplayer.score.push(scores);
                                 }
                                 displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
@@ -256,7 +255,6 @@ function oopsImadeAmistake() {
                 $("#dart1").html("-");
                 displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
         } else if (typeof currentplayer.score[round][0] == 'undefined') {
-                console.log(currentplayer.score);
                 var popped = currentplayer.score.pop();
                 console.log(popped);
                 console.log(round);
