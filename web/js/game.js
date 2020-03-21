@@ -199,17 +199,7 @@ function next(playerid) {
         });
 }
 
-//ToDo
-//does not work yet
 function calcResult() {
-        /*
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        */
         $.when(getPlayers()).done(function (data) {
                 allPlayers = data;
                 var activePlayers = [];
@@ -221,10 +211,11 @@ function calcResult() {
                 });
                 console.log(activePlayers);
                 activePlayers = activePlayers.sort(scoreSort);
+                //ToDo: add more sort algorithms for multiple players
+                //activePlayers = activePlayers.sort(scoreSort);
                 console.log(activePlayers);
-
+                ranking = 1;
                 $.each(activePlayers, function (index) {
-                        ranking = 1;
                         //append to resultslist table
                         $('#resultslist tbody').append('<tr><th scope="row">' + ranking + '</th><td>' + activePlayers[index].name + '</td><td>' + activePlayers[index].tries + '</td><td>' + activePlayers[index].avg + '</td></tr>');
                         ranking += 1;                       
@@ -234,9 +225,7 @@ function calcResult() {
 
 //Hardcoded --> Points is fourth value in array
 function scoreSort(a, b) {
-        if (a[6] < b[6]) return -1;
-        if (a[6] > b[6]) return 1;
-        return 0;
+        return ((a.points < b.points) ? -1 : a.points > b.points ? 1 : 0)
 }
 
 function displayPoints(order, points, avg) {
