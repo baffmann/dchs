@@ -97,12 +97,12 @@ function updateList(playerid) {
                                         //console.log("if undef");
                                         //check if player threw three darts..must atleast have one score
                                         for (var i = 0; i < 3; i++) {
-                                                $("#" + order + "-score-" + (i+1)).html(typeof score[round-1][i] !== 'undefined' ? score[round-1][i] : "-")
+                                                $("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
                                         }
                                 } else {
                                         //console.log("or else...");
                                         for (var i = 0; i < 3; i++) {
-                                                $("#" + order + "-score-" + (i+1)).html(score[round][i])
+                                                $("#" + order + "-score-" + (i + 1)).html(score[round][i])
                                         }
                                 }
 
@@ -128,7 +128,7 @@ function getPlayers() {
         });
 };
 
-function sendUpdate(){
+function sendUpdate() {
         var postUrl = "/api/update";
         $.ajax({
                 type: "POST",
@@ -176,7 +176,7 @@ function next(playerid) {
                                 if (currentplayer.score == null) {
                                         rounds.push(scores);
                                         currentplayer.score = rounds;
-                                } else if (typeof currentplayer.score[round] == 'undefined'){ 
+                                } else if (typeof currentplayer.score[round] == 'undefined') {
                                         //only add score array if player is in new round
                                         //array is already defined when delete button was used
                                         currentplayer.score.push(scores);
@@ -185,17 +185,58 @@ function next(playerid) {
                                 $("#spielername").html(currentplayer.name);
 
                                 for (var i = 1; i < 4; i++) {
-                                        $("#dart"+i).html("-");
+                                        $("#dart" + i).html("-");
                                 }
                         }
 
                 } else {
                         //Modal for finished Game
+                        calcResult();
                         $("#finishedGame").modal()
                         console.log("Now we are done!!");
 
                 }
         });
+}
+
+//ToDo
+//does not work yet
+function calcResult() {
+        /*
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        */
+        $.when(getPlayers()).done(function (data) {
+                allPlayers = data;
+                var activePlayers = [];
+                $.each(data, function (index) {
+                        //sort active players
+                        if (data[index].active == true) {
+                                activePlayers.push(data[index]);
+                        }
+                });
+                console.log(activePlayers);
+                activePlayers = activePlayers.sort(scoreSort);
+                console.log(activePlayers);
+
+                $.each(activePlayers, function (index) {
+                        ranking = 1;
+                        //append to resultslist table
+                        $('#resultslist tbody').append('<tr><th scope="row">' + ranking + '</th><td>' + activePlayers[index].name + '</td><td>' + activePlayers[index].tries + '</td><td>' + activePlayers[index].avg + '</td></tr>');
+                        ranking += 1;                       
+                });
+        })
+}
+
+//Hardcoded --> Points is fourth value in array
+function scoreSort(a, b) {
+        if (a[6] < b[6]) return -1;
+        if (a[6] > b[6]) return 1;
+        return 0;
 }
 
 function displayPoints(order, points, avg) {
@@ -232,7 +273,7 @@ function displayPoints(order, points, avg) {
 function oopsImadeAmistake() {
         console.log("ooooooooooooooooopz");
         //do nothing if start reached
-        if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined'){
+        if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined') {
                 return;
         }
         if (typeof currentplayer.score[round][2] != 'undefined') {
@@ -332,18 +373,15 @@ function points(btn) {
                         $("#" + currentplayer.order + "-points").html(currentplayer.points);
 
                         for (var i = 1; i < 4; i++) {
-                                $("#" + currentplayer.order + "-score-" + i).html(currentplayer.score[round][(i-1)]);
+                                $("#" + currentplayer.order + "-score-" + i).html(currentplayer.score[round][(i - 1)]);
                         }
-
-                        //$("#" + currentplayer.order + "-score-2").html(currentplayer.score[round][1]);
-                        //$("#" + currentplayer.order + "-score-3").html(currentplayer.score[round][2]);
 
                 }
 
         } else { //if ((person.points - totalscore) <= 1) && double == 1
                 for (var i = 0; i < 3; i++) {
-                        $("#" + currentplayer.order + "-score-" + i).html(currentplayer.score[round][(i-1)]);
-                        console.log("else:"+i+": " + currentplayer.score[round][i] + " " + typeof currentplayer.score[round][i]);
+                        $("#" + currentplayer.order + "-score-" + i).html(currentplayer.score[round][(i - 1)]);
+                        console.log("else:" + i + ": " + currentplayer.score[round][i] + " " + typeof currentplayer.score[round][i]);
                 }
 
                 switch (dart) {
@@ -406,7 +444,7 @@ function resetMultiplier() {
 }
 
 function calcAvg() {
-        return Math.round(((((gamemode - currentplayer.points) / currentplayer.tries) *3 ) + Number.EPSILON) * 100) / 100;
+        return Math.round(((((gamemode - currentplayer.points) / currentplayer.tries) * 3) + Number.EPSILON) * 100) / 100;
 }
 
 function untilTheEnd() {
