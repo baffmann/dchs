@@ -47,6 +47,7 @@ var playerlist = [];
 var double = 1;
 var triple = 1;
 var round = 0;
+var keepPlaying = false;
 
 var currentplayer;
 var allPlayers;
@@ -158,7 +159,6 @@ function next(playerid) {
                 });
                 //console.log("Stillplaying: " + stillPlaying);
                 if (!gameFinished(stillPlaying)) {
-                        $("#backbtn").show();
                         updateList(playerid);
                         if (currentplayer.finished == true) {
                                 //console.log("currentplayer finished");
@@ -190,6 +190,8 @@ function next(playerid) {
                         }
 
                 } else {
+                        //Modal for finished Game
+                        $("#finishedGame").modal()
                         console.log("Now we are done!!");
 
                 }
@@ -382,7 +384,6 @@ function points(btn) {
 
         if (scoredthree || currentplayer.points == 0) {
                 console.log("Player finished, Loading next");
-                $("#backbtn").hide();
                 index += 1;
                 if (index > playercount - 1) {
                         index = 0;
@@ -406,6 +407,11 @@ function resetMultiplier() {
 
 function calcAvg() {
         return Math.round(((((gamemode - currentplayer.points) / currentplayer.tries) *3 ) + Number.EPSILON) * 100) / 100;
+}
+
+function untilTheEnd() {
+        $("#finishedGame").modal("hide");
+        keepPlaying = true;
 }
 
 
