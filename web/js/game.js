@@ -48,6 +48,7 @@ var double = 1;
 var triple = 1;
 var round = 0;
 var keepPlaying = false;
+var ranking = 1;
 
 var currentplayer;
 var allPlayers;
@@ -85,7 +86,6 @@ function updateList(playerid) {
                         score = allPlayers[index].score;
                         //score is null in the beginning of a game
                         if (score == null) {
-                                //console.log("score is null");
                                 for (var i = 1; i < 4; i++) {
                                         $("#" + order + "-score-" + i).html("-");
                                 }
@@ -210,22 +210,65 @@ function calcResult() {
                         }
                 });
                 console.log(activePlayers);
-                activePlayers = activePlayers.sort(scoreSort);
+                activePlayers = activePlayers.sort(resultsSort);
                 //ToDo: add more sort algorithms for multiple players
                 //activePlayers = activePlayers.sort(scoreSort);
                 console.log(activePlayers);
                 ranking = 1;
                 $.each(activePlayers, function (index) {
                         //append to resultslist table
-                        $('#resultslist tbody').append('<tr><th scope="row">' + ranking + '</th><td>' + activePlayers[index].name + '</td><td>' + activePlayers[index].tries + '</td><td>' + activePlayers[index].avg + '</td></tr>');
+                        $('#resultslist tbody').append('<tr><th scope="row">' 
+                        + ranking 
+                        + '</th><td>' 
+                        + activePlayers[index].name 
+                        + '</td><td>' 
+                        + activePlayers[index].tries 
+                        + '</td><td>' 
+                        + activePlayers[index].avg 
+                        + '</td></tr>');
+
                         ranking += 1;                       
                 });
         })
 }
 
-//Hardcoded --> Points is fourth value in array
-function scoreSort(a, b) {
-        return ((a.points < b.points) ? -1 : a.points > b.points ? 1 : 0)
+/*
+Sorting is in the following order
+1. Sort players in respect to ranking (not ranked is 99)
+2. Sort players regarding their points left
+3. Sort players by number of tries (equal to which player has better average)
+4. Sort players by order
+*/
+function resultsSort(a, b) {
+        if (a.ranking < b.ranking) {
+                return -1
+        }
+        if (a.ranking > b.ranking) {
+                return 1
+        }
+        //if ranking is the same (--> multiple players not finished)
+        if (a.points < b.points) {
+                return -1
+        }
+        if (a.points > b.points) {
+                return 1
+        }
+        //Players have the same amount of points
+        if (a.tries < b.tries){
+                return -1
+        }
+        if (a.tries > b.tries){
+                return 1
+        }
+        //Player have same amount of points and tries
+        if (a.order < b.order){
+                return -1
+        }
+        if (a.order > b.order){
+                return 1
+        }
+        //Basically this can't be reached 
+        return 0
 }
 
 function displayPoints(order, points, avg) {
@@ -310,12 +353,6 @@ function points(btn) {
         scoredthree = false;
         var dart = 1;
 
-        //console.log("Round: " + round);
-        /*
-        for (var i = 0; i < 3; i++) {
-                console.log(i+":" + currentplayer.score[round][i] + " " + typeof currentplayer.score[round][i]);
-        }
-        */
         //set score for current throw
 
         if (typeof currentplayer.score[round][0] == 'undefined') {
@@ -333,11 +370,10 @@ function points(btn) {
         }
 
         currentplayer.points -= totalscore;
+        currentplayer.tries += 1;
 
         //Check if throw was valid
         if ((currentplayer.points > 1) || ((currentplayer.points == 0) && (double == 2))) {
-                currentplayer.tries += 1;
-
 
                 switch (dart) {
                         case 1:
@@ -358,6 +394,8 @@ function points(btn) {
                 if (currentplayer.points == 0) {
                         currentplayer.finished = true;
                         scoredthree = true;
+                        currentplayer.ranking = ranking;
+                        ranking += 1;
                         //Display points because finished players are ignored in updatelist()
                         $("#" + currentplayer.order + "-points").html(currentplayer.points);
 

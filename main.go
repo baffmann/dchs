@@ -18,6 +18,7 @@ type Player struct {
 	Average  float64  `json:"avg"`
 	Order    int      `json:"order"`
 	Tries    int      `json:"tries"`
+	Ranking  int      `json:"ranking"`
 }
 
 /*type GameData struct {
@@ -39,6 +40,7 @@ func initGame() {
 		item.Average = 0
 		item.Score = nil
 		item.Tries = 0
+		item.Ranking = 99
 		db.Write("players", item.Name, item)
 	}
 }
@@ -66,6 +68,7 @@ func main() {
 	r.HandleFunc("/api/player", createPlayer).Methods("POST")
 	//r.HandleFunc("/api/player/points", setPoints).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
+	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./web/")))
 
 	http.ListenAndServe(":2222", r)

@@ -9,3 +9,11 @@ function reset() {
         url: resetUrl,
     })
 };
+
+function quitGame() {
+    var quitUrl = "/api/quitGame"
+    $.ajax({
+        type: "POST",
+        url: quitUrl,
+    })
+};

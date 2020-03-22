@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os/exec"
 	"sort"
 	"strings"
 )
@@ -143,6 +145,15 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 
 func resetGame(w http.ResponseWriter, r *http.Request) {
 	initGame()
+}
+
+func quitGame(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Shutting Down System. Goodbye.")
+	cmd := exec.Command("halt")
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 /*func setID(w http.ResponseWriter, r *http.Request) {
