@@ -7,7 +7,7 @@ $(document).ready(function () {
 });
 
 let playerbuttonStart = '<div class="col-lg-3" id="spielerbutton"><button type="button" class="btn btn-primary btn-lg btn-block playerbtn" data-toggle="button" id="';
-let playerbuttonID = '" onClick="select(this)"><span class="badge badge-light float-left"></span>'; // style="background:rgb(106,180,70);"
+let playerbuttonID = '" onClick="select(this)"><span class="badge badge-light float-left"></span>';
 let playerbuttonEnd = '</button></div>';
 
 function createPlayerButton(id, name) {
@@ -59,11 +59,7 @@ function reload() {
     });
 }
 
-function getPlayers() {
-    return $.ajax({
-        url: "/api/player",
-    });
-};
+
 
 function checkPlayerCount() {
     if (playercount >= 20) {
@@ -92,53 +88,16 @@ $("#neuerSpieler").click(function (e) {
     } else {
         person.status = 'inaktiv';
         person.points = gamemode;
-        $.when(createPlayer()).done(function (data){
+        $.when(createPlayer(person)).done(function (data) {
             reload();
         });
     }
 });
 
-function createPlayer() {
-    return $.ajax({
-        type: "POST",
-        url: "/api/player",
-        data: JSON.stringify(person),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        error: function (result) {
-            alert('Spieler konnte nicht angelegt werden.');
-        }
-    })
-};
-
 // empty value on modal open
 $('#spielerModal').on('hidden.bs.modal', function (e) {
     $(this).find("input,textarea,select").val('').end();
 });
-
-function update(player) {
-    console.log("update")
-    console.log(person)
-    var postUrl = "/api/update";
-    $.ajax({
-        type: "POST",
-        url: postUrl,
-        data: JSON.stringify(player),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-    })
-};
-
-function deleteCall(player) {
-    var deleteUrl = "/api/delete";
-    return $.ajax({
-        type: "POST",
-        url: deleteUrl,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(player),
-    })
-}
 
 function select(btn) {
     //find selected player by btn.id
@@ -166,42 +125,27 @@ function select(btn) {
 
         player.active = true;
         player.order = order;
-        var postUrl = "/api/update";
-        $.ajax({
-            type: "POST",
-            url: postUrl,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(player),
-            success: function (result) {
-                $("#" + result.id + " .badge.badge-light").text(result.order);
-                $("#" + result.id).attr("disabled", true);
-                activecount += 1;
-                order += 1;
-                console.log(activecount);
-            }
-        })
+
+        $.when(update(player)).done(function (data) {
+            $("#" + data.id + " .badge.badge-light").text(data.order);
+            $("#" + data.id).attr("disabled", true);
+            activecount += 1;
+            order += 1;
+        });
     }
 };
 
 
-function reset() {
-    var resetUrl = "/api/reset"
+function resetGame() {
+    reset();
     //also deactivate players in the frontend otherwise, player is active=true when gamemode (301/501) is changed 
     $.each(allPlayers, function (index) {
         allPlayers[index].active = false;
     });
-    $.ajax({
-        type: "POST",
-        url: resetUrl,
-        success: function (result) {
-            activecount = 0;
-            order = 1;
-            $("#startGame").attr("disabled", true);
-            $("#zuruecksetzen").attr("disabled", true);
-            $(".playerbtn .badge.badge-light").text('');
-            $(".playerbtn").attr("disabled", false);
-            $(".playerbtn").removeClass("active");
-        }
-    })
+    //set back frontend
+    $("#startGame").attr("disabled", true);
+    $("#zuruecksetzen").attr("disabled", true);
+    $(".playerbtn .badge.badge-light").text('');
+    $(".playerbtn").attr("disabled", false);
+    $(".playerbtn").removeClass("active");
 };
