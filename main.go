@@ -71,5 +71,5 @@ func main() {
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./web/")))
 
-	http.ListenAndServe(":2222", r)
+	http.ListenAndServe(":64760", r)
 }

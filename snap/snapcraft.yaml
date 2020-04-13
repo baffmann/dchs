@@ -1,0 +1,24 @@
+name: dc-hot-shots
+base: core18 
+version: '0.1' 
+summary: DC Hot Shots Darts Scoreboard
+description: |
+  Calculate 301/501 Games on a web darts board. Needs a browser, runs on localhost:64760
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+parts:
+  go-backend:
+    # See 'snapcraft plugins'
+    plugin: go
+    source: .
+  webstuff:
+    plugin: dump
+    source: web/
+
+apps:
+  dchs:
+    command: dchs
+    daemon: simple
+
