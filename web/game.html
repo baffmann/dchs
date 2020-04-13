@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="col centerGameButtons">
                                     <button type="button" class="btn btn-primary btn-lg btn-block" id="backbtn"
-                                        onclick="oopsImadeAmistake()">Löschen</button>
+                                        onclick="back()">Löschen</button>
                                 </div>
                             </div>
 
@@ -182,6 +182,9 @@
                         </div>
                         <div class="col-12" id="h85">
                             <ul class="list-group" id="scorelist"></ul>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="button" id="nextBtn" class="btn btn-primary btn-lg" onclick="nextBtn()">Weiter</button>
                         </div>
                     </div>
                 </div>
@@ -221,7 +224,7 @@
                         Should be available in a settings menu later on
                         <button type="button" class="btn btn-primary btn-lg" onclick="untilTheEnd()">Weiterspielen</button>
                     -->
-                    
+
                     <!--
                         Insert "Back" Button if last click was an error and game is not finished yet
                     -->

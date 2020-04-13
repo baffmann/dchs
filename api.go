@@ -176,7 +176,6 @@ func quitGame(w http.ResponseWriter, r *http.Request) {
 }*/
 
 func update(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("API UPDATE")
 	w.Header().Set("Content-Type", "application/json")
 	var tmpPlayer Player
 	decoder := json.NewDecoder(r.Body)

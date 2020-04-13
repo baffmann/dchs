@@ -124,6 +124,8 @@ function gameFinished(stillPlaying) {
 }
 
 function next(playerid) {
+	$('#backbtn').attr("disabled", true);
+	$('#nextBtn').attr("disabled", true)
 	console.log("next(playerid): " + playerid);
 	var stillPlaying = 0;
 	$.when(getPlayers()).done(function (data) {
@@ -277,12 +279,13 @@ function displayPoints(order, points, avg) {
 
 }
 
-
-function oopsImadeAmistake() {
+//delete last throw of player
+function back() {
 	//do nothing if start reached
 	if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined') {
 		return;
 	}
+	$('#nextBtn').attr("disabled", true)
 	if (typeof currentplayer.score[round][2] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][2];
 		currentplayer.score[round][2] = undefined;
@@ -298,13 +301,19 @@ function oopsImadeAmistake() {
 		$("#dart2").html("-");
 		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	} else if (typeof currentplayer.score[round][0] != 'undefined') {
+		$('#backbtn').attr("disabled", true);
 		currentplayer.points += currentplayer.score[round][0];
 		currentplayer.score[round][0] = undefined;
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
 		$("#dart1").html("-");
 		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
-	} else if (typeof currentplayer.score[round][0] == 'undefined') {
+	} 
+	
+	//I'M SORRY BUT THIS IS BUGGY AS HELL
+	/*
+	
+	else if (typeof currentplayer.score[round][0] == 'undefined') {
 		var popped = currentplayer.score.pop();
 		console.log(popped);
 		console.log(round);
@@ -316,10 +325,13 @@ function oopsImadeAmistake() {
 		}
 		next(playerlist[index]);
 	}
+	
+	*/
 }
 
 
 function points(btn) {
+	$('#backbtn').attr("disabled", false);
 	console.log("points");
 	console.log(currentplayer.score)
 
@@ -424,16 +436,18 @@ function points(btn) {
 	resetMultiplier();
 
 	if (scoredthree || currentplayer.points == 0) {
-		console.log("Player finished, Loading next");
-		index += 1;
-		if (index > playercount - 1) {
-			index = 0;
-			round += 1;
-		}
-		next(playerlist[index]);
+		$('#nextBtn').attr("disabled", false)
 	}
+}
 
-
+function nextBtn(){
+	console.log("Player finished, Loading next");
+	index += 1;
+	if (index > playercount - 1) {
+		index = 0;
+		round += 1;
+	}
+	next(playerlist[index]);
 }
 
 function resetMultiplier() {
