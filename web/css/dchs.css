@@ -35,7 +35,6 @@ body {
     background: rgba(204, 204, 204, 0.5);
 }
 
-
 #h10 {
     height: 10%;
 }
@@ -68,8 +67,7 @@ body {
     height: 100%;
 }
 
-
-.badge-pill{
+.badge-pill {
     margin-right: 20px;
 }
 
@@ -94,19 +92,9 @@ body {
     margin-bottom: auto;
 }
 
-
-
-#spielername{
+#spielername {
     margin-top: 20px;
 }
-/*
-#zerobtn,#doublebtn,#triplebtn,#backbtn{
-    background: whitesmoke;
-    color: black;
-    font-size: 2em;
-    height: 70px !important;
-    /*transition:0s 100ms;
-}*/
 
 .full-height {
     min-height: 100%;
@@ -178,13 +166,13 @@ body {
 
 /*--- General Settings ---*/
 
-
-
 .menutitle {
     font-size: 5.5em;
 }
 
+
 /*--- buttons ---*/
+
 
 /*
 .btn {
@@ -206,20 +194,53 @@ body {
 
 */
 
-#pointbtn{
+#pointbtn {
     background: whitesmoke;
     color: black;
     font-size: 2em;
-    width: 100px !important;
-    height: 100px !important;
-    transition:0s 100ms;
+    width: 170px !important;
+    height: 150px !important;
+    transition: 0s 100ms;
 }
 
-#pointbtn:active/*#zerobtn:active,#doublebtn:active*/{
+#pointbtn:active {
     background: red;
-    transition:0s;
+    transition: 0s;
 }
 
-#punktzahl, #spielername, #newsticker {
-        text-shadow: 2px 2px 3px #000;
+#zerobtn,
+#backbtn {
+    background: whitesmoke;
+    color: black;
+    font-size: 2em;
+    height: 90px !important;
+    transition: 0s 100ms;
+}
+
+#doublebtn {
+    background: rgb(105, 184, 3);
+    color: black;
+    font-size: 2em;
+    height: 90px !important;
+    transition: 0s 100ms;
+}
+
+#triplebtn {
+    background: rgb(190, 63, 3);
+    color: black;
+    font-size: 2em;
+    height: 90px !important;
+    transition: 0s 100ms;
+}
+
+#zerobtn:active,
+#backbtn:active {
+    background: red;
+    transition: 0s;
+}
+
+#punktzahl,
+#spielername,
+#newsticker {
+    text-shadow: 2px 2px 3px #000;
 }

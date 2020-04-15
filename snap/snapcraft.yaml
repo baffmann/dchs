@@ -16,6 +16,8 @@ parts:
   webstuff:
     plugin: dump
     source: web/
+    organize:
+      '*': web/
 
 apps:
   dchs:
