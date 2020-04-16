@@ -81,5 +81,8 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 
-	http.ListenAndServe(":64760", r)
+	err = http.ListenAndServe(":64760", r)
+	if err != nil {
+		fmt.Println("Error starting webserver: ", err)
+	}
 }
