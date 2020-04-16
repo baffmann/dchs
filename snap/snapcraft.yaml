@@ -19,7 +19,7 @@ parts:
     plugin: dump
     source: web/
     organize:
-      '*': bin/web/
+      '*': web/
 
 apps:
   dchs:

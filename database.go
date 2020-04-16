@@ -20,3 +20,18 @@ func readPlayers() {
 		players = append(players, playerFound)
 	}
 }
+
+func updatePlayer(name string, player Player) (err error) {
+	if err := db.Write("players", name, player); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func deletePlayer(name string) (err error) {
+	if err := db.Delete("players", name); err != nil {
+		return err
+	}
+	return nil
+}

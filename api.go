@@ -36,7 +36,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	readPlayers()
-	if err := db.Delete("players", tmpPlayer.Name); err != nil {
+	if err := deletePlayer(tmpPlayer.Name); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
 	json.NewEncoder(w).Encode(tmpPlayer)
@@ -80,7 +80,9 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 	player.ID = id + 1
 
-	db.Write("players", player.Name, player)
+	if err := updatePlayer(player.Name, player); err != nil {
+		fmt.Println("Error creating new player ", player.Name, " :", err)
+	}
 	json.NewEncoder(w).Encode(&player)
 }
 
@@ -184,7 +186,7 @@ func update(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	readPlayers()
-	if err := db.Write("players", tmpPlayer.Name, tmpPlayer); err != nil {
+	if err := updatePlayer(tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error", err)
 	}
 	json.NewEncoder(w).Encode(tmpPlayer)

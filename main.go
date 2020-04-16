@@ -42,7 +42,7 @@ func initGame() {
 		item.Score = nil
 		item.Tries = 0
 		item.Ranking = 99
-		db.Write("players", item.Name, item)
+		updatePlayer(item.Name, item)
 	}
 }
 
