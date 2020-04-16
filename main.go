@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/sdomino/scribble"
@@ -69,7 +70,16 @@ func main() {
 	//r.HandleFunc("/api/player/points", setPoints).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./web/")))
+
+	var webPath string
+
+	if os.Getenv("SNAP") != "" {
+		webPath = string(os.Getenv("SNAP")) + "/web/"
+	} else {
+		webPath = "./web/"
+	}
+
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 
 	http.ListenAndServe(":64760", r)
 }
