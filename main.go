@@ -29,7 +29,7 @@ type Player struct {
 }
 var gameData GameData*/
 
-var workingDir string
+var workingDir, dbDir string
 
 var players []Player
 
@@ -53,14 +53,20 @@ func main() {
 	if os.Getenv("SNAP") != "" {
 		workingDir = string(os.Getenv("SNAP"))
 	} else {
-		workingDir = "."
+		workingDir = "./"
 	}
 
-	webPath := workingDir + "/web/"
+	if os.Getenv("SNAP_DATA") != "" {
+		dbDir = string(os.Getenv("SNAP_DATA"))
+	} else {
+		dbDir = "./"
+	}
+
+	webPath := workingDir + "web/"
 
 	var err error
 
-	db, err = scribble.New(workingDir, nil)
+	db, err = scribble.New(dbDir, nil)
 	if err != nil {
 		fmt.Println("Error creating database: ", err)
 	}

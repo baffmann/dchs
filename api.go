@@ -81,6 +81,7 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 
 	if err := updatePlayer(player.Name, player); err != nil {
 		fmt.Println("Error creating new player ", player.Name, " :", err)
+		return
 	}
 	fmt.Println("Player ", player.Name, " with id ", player.ID, " created!")
 	json.NewEncoder(w).Encode(&player)
