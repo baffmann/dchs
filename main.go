@@ -29,6 +29,8 @@ type Player struct {
 }
 var gameData GameData*/
 
+var workingDir string
+
 var players []Player
 
 func initGame() {
@@ -47,8 +49,18 @@ func initGame() {
 }
 
 func main() {
+
+	if os.Getenv("SNAP") != "" {
+		workingDir = string(os.Getenv("SNAP"))
+	} else {
+		workingDir = "."
+	}
+
+	webPath := workingDir + "/web/"
+
 	var err error
-	db, err = scribble.New("./", nil)
+
+	db, err = scribble.New(workingDir, nil)
 	if err != nil {
 		fmt.Println("Error creating database: ", err)
 	}
@@ -70,14 +82,6 @@ func main() {
 	//r.HandleFunc("/api/player/points", setPoints).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
-
-	var webPath string
-
-	if os.Getenv("SNAP") != "" {
-		webPath = string(os.Getenv("SNAP")) + "/web/"
-	} else {
-		webPath = "./web/"
-	}
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 

@@ -27,7 +27,6 @@ import (
 }*/
 
 func delete(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("delete Player")
 	w.Header().Set("Content-Type", "application/json")
 	var tmpPlayer Player
 	decoder := json.NewDecoder(r.Body)
@@ -39,6 +38,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 	if err := deletePlayer(tmpPlayer.Name); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
+	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
 	json.NewEncoder(w).Encode(tmpPlayer)
 }
 
@@ -59,7 +59,6 @@ func allplayers(w http.ResponseWriter, r *http.Request) {
 }
 
 func createPlayer(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("createPlayer")
 	w.Header().Set("Content-Type", "application/json")
 	var player Player
 	json.NewDecoder(r.Body).Decode(&player)
@@ -83,6 +82,7 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 	if err := updatePlayer(player.Name, player); err != nil {
 		fmt.Println("Error creating new player ", player.Name, " :", err)
 	}
+	fmt.Println("Player ", player.Name, " with id ", player.ID, " created!")
 	json.NewEncoder(w).Encode(&player)
 }
 
