@@ -49,11 +49,11 @@ func initGame() {
 }
 
 func main() {
-
+	fmt.Println("Welcome to DCHS Darts Scoreboard!")
 	if os.Getenv("SNAP") != "" {
 		workingDir = string(os.Getenv("SNAP"))
 	} else {
-		workingDir = "./"
+		workingDir = "."
 	}
 
 	if os.Getenv("SNAP_DATA") != "" {
@@ -62,14 +62,15 @@ func main() {
 		dbDir = "./"
 	}
 
-	webPath := workingDir + "web/"
-
+	webPath := workingDir + "/web/"
+	fmt.Println("Website is hosted at " + webPath)
 	var err error
 
 	db, err = scribble.New(dbDir, nil)
 	if err != nil {
 		fmt.Println("Error creating database: ", err)
 	}
+	fmt.Println("Database initiated at " + dbDir)
 
 	initGame()
 
@@ -91,6 +92,7 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 
+	fmt.Println("Starting webserver at port 64760")
 	err = http.ListenAndServe(":64760", r)
 	if err != nil {
 		fmt.Println("Error starting webserver: ", err)
