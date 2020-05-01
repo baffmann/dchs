@@ -13,11 +13,11 @@ $(document).ready(function () {
 	});
 });
 
-list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;">';
-list2 = '</div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary" id="';
-list3 = '-score-1">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary" id="';
-list4 = '-score-2">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary" id="';
-list5 = '-score-3">-</span></div><strong><div class="col-lg-3 text-center" id="';
+list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;"><strong style="font-size: 1.2em;">';
+list2 = '</strong></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
+list3 = '-score-1">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
+list4 = '-score-2">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
+list5 = '-score-3">-</span></div><strong style="font-size: 1.2em;"><div class="col-lg-3 text-center" id="';
 list6 = '-points" style="padding-right: 0;">';
 list7 = '</div></strong></li>';
 
@@ -60,8 +60,10 @@ function doubleActive() {
 		double = 1;
 		$("#doublebtn").removeClass("active");
 		$('#triplebtn').attr("disabled", false);
+		$('.pointbtn').css("background","");
 	} else {
 		double = 2;
+		$('.pointbtn').css("background","rgb(105, 184, 3)");
 		$('#triplebtn').attr("disabled", true);
 	}
 }
@@ -72,8 +74,10 @@ function tripleActive() {
 		$("#triplebtn").removeClass("active");
 		$('#pointbtn[value="25"]').attr("disabled", false);
 		$('#doublebtn').attr("disabled", false);
+		$('.pointbtn').css("background","");
 	} else {
 		triple = 3;
+		$('.pointbtn').css("background","rgb(190, 63, 3)");
 		$('#pointbtn[value="25"]').attr("disabled", true);
 		$('#doublebtn').attr("disabled", true);
 	}
@@ -285,7 +289,13 @@ function back() {
 	if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined') {
 		return;
 	}
+	
 	$('#nextBtn').attr("disabled", true)
+	$('.pointbtn').attr("disabled", false);
+	$('#zerobtn').attr("disabled", false);
+	$('#doublebtn').attr("disabled", false);
+	$('#triplebtn').attr("disabled", false);
+
 	if (typeof currentplayer.score[round][2] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][2];
 		currentplayer.score[round][2] = undefined;
@@ -355,6 +365,9 @@ function points(btn) {
 		dart = 3;
 		scoredthree = true;
 		//console.log("third dart");
+	} else if (typeof currentplayer.score[round][2] != 'undefined') {
+		//do nothing because player is finished
+		return;
 	}
 
 	currentplayer.points -= totalscore;
@@ -436,12 +449,20 @@ function points(btn) {
 	resetMultiplier();
 
 	if (scoredthree || currentplayer.points == 0) {
-		$('#nextBtn').attr("disabled", false)
+		$('.pointbtn').attr("disabled", true);
+		$('#zerobtn').attr("disabled", true);
+		$('#doublebtn').attr("disabled", true);
+		$('#triplebtn').attr("disabled", true);
+		$('#nextBtn').attr("disabled", false);
 	}
 }
 
 function nextBtn(){
 	console.log("Player finished, Loading next");
+	$('.pointbtn').attr("disabled", false);
+	$('#zerobtn').attr("disabled", false);
+	$('#doublebtn').attr("disabled", false);
+	$('#triplebtn').attr("disabled", false);
 	index += 1;
 	if (index > playercount - 1) {
 		index = 0;
@@ -458,6 +479,7 @@ function resetMultiplier() {
 	$("#triplebtn").removeClass("active");
 	$('#triplebtn').attr("disabled", false);
 	$('#pointbtn[value="25"]').attr("disabled", false);
+	$('.pointbtn').css("background","");	
 }
 
 function calcAvg() {
