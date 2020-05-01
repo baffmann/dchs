@@ -93,8 +93,9 @@ func main() {
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 
 	fmt.Println("Starting webserver at port 64760")
-	err = http.ListenAndServe(":64760", r)
+	err = http.ListenAndServe(":64765", r)
 	if err != nil {
 		fmt.Println("Error starting webserver: ", err)
+		os.Exit(1)
 	}
 }
