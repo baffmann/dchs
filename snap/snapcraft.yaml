@@ -26,5 +26,5 @@ apps:
     command: bin/dchs
     daemon: simple
     #add restart-condition here
-    plugs: [network-bind]
+    plugs: [network-bind, shutdown]
 
