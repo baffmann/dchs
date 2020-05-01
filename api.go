@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"sort"
 	"strings"
@@ -152,7 +153,9 @@ func resetGame(w http.ResponseWriter, r *http.Request) {
 
 func quitGame(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Shutting Down System. Goodbye.")
-	cmd := exec.Command("halt")
+	cmd := exec.Command("sudo", "/sbin/halt")
+	cmd.Stderr = os.Stdout
+	cmd.Stdout = os.Stdout
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
