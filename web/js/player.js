@@ -34,20 +34,23 @@ var order = 1;
 
 function setDelete() {
     console.log(deletemode);
+    resetGame();
     if (deletemode === 0) {
         deletemode = 1;
         $('#playerlist :button').css('background-color', 'red');
         $("#title").html("Welcher Spieler soll gelöscht werden?");
     } else {
-        $("#title").html("Spieler auswählen: ");
-        $('#playerlist :button').css('background-color', '');
-        deletemode = 0;
-        //$("#deletePlayer").removeClass("active");
+        resetDelete();
     }
 }
 
+function resetDelete(){
+    $("#title").html("Spieler auswählen: ");
+    $('#playerlist :button').css('background-color', '');
+    deletemode = 0;
+}
+
 function reload() {
-    resetGame();
     playercount = 0;
     $('#playerlist').empty();
     $.when(getPlayers()).done(function (data) {
@@ -83,10 +86,6 @@ $("#myButtons :input").change(function () {
 
 $("#neuerSpieler").click(function (e) {
     e.preventDefault();
-    //reset if deletemode was chosen before new player button was clicked
-    deletemode = 1;
-    setDelete();
-
     person.name = $("#spieler-name").val();
     if (person.name.length < 3) {
         alert("Bitte mehr als 3 Zeichen eingeben");
@@ -139,6 +138,14 @@ function select(btn) {
         });
     }
 };
+
+
+
+function newPlayerBtn(){
+    //reset delete mode if chosen before
+    resetDelete();
+    resetGame();
+} 
 
 
 function resetGame() {
