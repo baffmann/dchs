@@ -436,6 +436,23 @@ function points(btn) {
 		//hacky hack....TODO: Check if necessary
 		currentplayer.points = parseInt(currentplayer.points);
 		console.log("hacky hackepeter:" + currentplayer.points);
+
+		//display throw even if scored too much for better user experience
+		switch (dart) {
+			case 1:
+				console.log("Darts1 - Overthrown: " + totalscore);
+				$("#dart1").html(totalscore);
+				break;
+			case 2:
+				console.log("Darts2 - Overthrown: " + totalscore);
+				$("#dart2").html(totalscore);
+				break;
+			case 3:
+				console.log("Darts3 - Overthrown: " + totalscore);
+				$("#dart3").html(totalscore);
+				break;
+		}
+
 		$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte! No Score!")
 		scoredthree = true;
 	}
