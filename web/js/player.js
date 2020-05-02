@@ -47,6 +47,7 @@ function setDelete() {
 }
 
 function reload() {
+    resetGame();
     playercount = 0;
     $('#playerlist').empty();
     $.when(getPlayers()).done(function (data) {
@@ -83,9 +84,9 @@ $("#myButtons :input").change(function () {
 $("#neuerSpieler").click(function (e) {
     e.preventDefault();
     //reset if deletemode was chosen before new player button was clicked
-    deletemode = 1
-    setDelete()
-    
+    deletemode = 1;
+    setDelete();
+
     person.name = $("#spieler-name").val();
     if (person.name.length < 3) {
         alert("Bitte mehr als 3 Zeichen eingeben");
@@ -147,6 +148,8 @@ function resetGame() {
         allPlayers[index].active = false;
     });
     //set back frontend
+    order = 1;
+    activecount = 0;
     $("#startGame").attr("disabled", true);
     $("#zuruecksetzen").attr("disabled", true);
     $(".playerbtn .badge.badge-light").text('');
