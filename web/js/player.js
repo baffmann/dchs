@@ -6,7 +6,7 @@ $(document).ready(function () {
     reload();
 });
 
-let playerbuttonStart = '<div class="col-lg-3" id="spielerbutton"><button type="button" class="btn btn-primary btn-lg btn-block playerbtn" data-toggle="button" id="';
+let playerbuttonStart = '<div class="col-lg-2" id="spielerbutton"><button type="button" class="btn btn-primary btn-lg btn-block playerbtn" data-toggle="button" id="';
 let playerbuttonID = '" onClick="select(this)"><span class="badge badge-light float-left"></span>';
 let playerbuttonEnd = '</button></div>';
 
@@ -62,7 +62,7 @@ function reload() {
 
 
 function checkPlayerCount() {
-    if (playercount >= 20) {
+    if (playercount >= 24) {
         $("#newPlayer").attr("disabled", true);
     } else {
         $("#newPlayer").attr("disabled", false);
