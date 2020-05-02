@@ -22,8 +22,13 @@ parts:
       '*': web/
   shutdown:
     plugin: dump
-    source: feierabend.sh
+    source: .
+    organize:
+      feierabend.sh : bin/feierabend.sh
+    stage:
+      - bin/feierabend.sh
 
+    
 apps:
   dchs:
     command: bin/dchs
