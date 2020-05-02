@@ -153,7 +153,7 @@ func resetGame(w http.ResponseWriter, r *http.Request) {
 
 func quitGame(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Shutting Down System. Goodbye.")
-	cmd := exec.Command("/sbin/halt")
+	cmd := exec.Command("./feierabend.sh")
 	cmd.Stderr = os.Stdout
 	cmd.Stdout = os.Stdout
 	err := cmd.Run()

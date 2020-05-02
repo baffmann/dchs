@@ -20,6 +20,9 @@ parts:
     source: web/
     organize:
       '*': web/
+  shutdown:
+    plugin: dump
+    source: feierabend.sh
 
 apps:
   dchs:
