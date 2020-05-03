@@ -50,6 +50,7 @@ var round = 0;
 //Not in use yet, see function untilTheEnd
 //var keepPlaying = false;
 var ranking = 1;
+var shot = 1;
 
 var currentplayer;
 var allPlayers;
@@ -60,10 +61,10 @@ function doubleActive() {
 		double = 1;
 		$("#doublebtn").removeClass("active");
 		$('#triplebtn').attr("disabled", false);
-		$('.pointbtn').css("background","");
+		$('.pointbtn').css("background", "");
 	} else {
 		double = 2;
-		$('.pointbtn').css("background","rgb(105, 184, 3)");
+		$('.pointbtn').css("background", "rgb(105, 184, 3)");
 		$('#triplebtn').attr("disabled", true);
 	}
 }
@@ -74,10 +75,10 @@ function tripleActive() {
 		$("#triplebtn").removeClass("active");
 		$('#pointbtn[value="25"]').attr("disabled", false);
 		$('#doublebtn').attr("disabled", false);
-		$('.pointbtn').css("background","");
+		$('.pointbtn').css("background", "");
 	} else {
 		triple = 3;
-		$('.pointbtn').css("background","rgb(190, 63, 3)");
+		$('.pointbtn').css("background", "rgb(190, 63, 3)");
 		$('#pointbtn[value="25"]').attr("disabled", true);
 		$('#doublebtn').attr("disabled", true);
 	}
@@ -129,7 +130,11 @@ function gameFinished(stillPlaying) {
 
 function next(playerid) {
 	$('#backbtn').attr("disabled", true);
-	$('#nextBtn').attr("disabled", true)
+	$('#nextBtn').attr("disabled", true);
+	var roundtext = "Runde: ";
+	//round +1 because game starts with round 0
+	roundtext += round + 1;
+	$('#roundnumber').html(roundtext);
 	console.log("next(playerid): " + playerid);
 	var stillPlaying = 0;
 	$.when(getPlayers()).done(function (data) {
@@ -289,7 +294,7 @@ function back() {
 	if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined') {
 		return;
 	}
-	
+
 	$('#nextBtn').attr("disabled", true)
 	$('.pointbtn').attr("disabled", false);
 	$('#zerobtn').attr("disabled", false);
@@ -318,8 +323,8 @@ function back() {
 		currentplayer.avg = calcAvg();
 		$("#dart1").html("-");
 		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
-	} 
-	
+	}
+
 	//I'M SORRY BUT THIS IS BUGGY AS HELL
 	/*
 	
@@ -474,8 +479,9 @@ function points(btn) {
 	}
 }
 
-function nextBtn(){
+function nextBtn() {
 	console.log("Player finished, Loading next");
+	checkShot();
 	$('.pointbtn').attr("disabled", false);
 	$('#zerobtn').attr("disabled", false);
 	$('#doublebtn').attr("disabled", false);
@@ -488,6 +494,34 @@ function nextBtn(){
 	next(playerlist[index]);
 }
 
+function checkShot() {
+	if (shot > 4){
+		return;
+	}
+	switch (currentplayer.points) {
+		case 444:
+			$("#shot" + shot).attr("src","images/greenshot.png");
+			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			shot += 1;
+			break;
+		case 333:
+			$("#shot" + shot).attr("src","images/greenshot.png");
+			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			shot += 1;
+			break;
+		case 222:
+			$("#shot" + shot).attr("src","images/greenshot.png");
+			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			shot += 1;
+			break;
+		case 111:
+			$("#shot" + shot).attr("src","images/greenshot.png");
+			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			shot += 1;
+			break;
+	}
+}
+
 function resetMultiplier() {
 	double = 1;
 	$("#doublebtn").removeClass("active");
@@ -496,7 +530,7 @@ function resetMultiplier() {
 	$("#triplebtn").removeClass("active");
 	$('#triplebtn').attr("disabled", false);
 	$('#pointbtn[value="25"]').attr("disabled", false);
-	$('.pointbtn').css("background","");	
+	$('.pointbtn').css("background", "");
 }
 
 function calcAvg() {
