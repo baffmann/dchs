@@ -263,6 +263,9 @@ body {
 .scorebadge{
     height: 30px;
     width: 30px;
+    vertical-align: middle !important;
+    line-height: 1.5;
+    font-size: 100%;
 }
 
 .bigBtn {
@@ -275,5 +278,12 @@ body {
     height: 80px;
     width: 200px;
 }
+
+.shotImg {
+    position: relative;
+    z-index: 1;
+}
+
+
 
 

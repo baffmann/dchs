@@ -11,6 +11,11 @@ $(document).ready(function () {
 		$("#newsticker").html("Newsticker: ");
 		next(playerlist[0]);
 	});
+	$(function () {
+		$('[data-toggle="popover"]').popover({
+			container: 'body'
+		})
+	  })
 });
 
 list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;"><strong style="font-size: 1.2em;">';
@@ -458,7 +463,7 @@ function points(btn) {
 				break;
 		}
 
-		$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte! No Score!")
+		$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte! No Score!");
 		scoredthree = true;
 	}
 
@@ -495,28 +500,29 @@ function nextBtn() {
 }
 
 function checkShot() {
-	if (shot > 4){
+	if (shot > 4) {
 		return;
 	}
+	humanRound = round + 1;
 	switch (currentplayer.points) {
 		case 444:
-			$("#shot" + shot).attr("src","images/greenshot.png");
-			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			$("#shot" + shot).attr("src", "images/greenshot.png");
+			$("#shot" + shot).attr("title", currentplayer.name + " hat " + currentplayer.points + " in Runde " + humanRound + " geworfen! Cheers!");
 			shot += 1;
 			break;
 		case 333:
-			$("#shot" + shot).attr("src","images/greenshot.png");
-			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			$("#shot" + shot).attr("src", "images/greenshot.png");
+			$("#shot" + shot).attr("title", currentplayer.name + " hat " + currentplayer.points + " in Runde " + humanRound + " geworfen! Cheers!");
 			shot += 1;
 			break;
 		case 222:
-			$("#shot" + shot).attr("src","images/greenshot.png");
-			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			$("#shot" + shot).attr("src", "images/greenshot.png");
+			$("#shot" + shot).attr("title", currentplayer.name + " hat " + currentplayer.points + " in Runde " + humanRound + " geworfen! Cheers!");
 			shot += 1;
 			break;
 		case 111:
-			$("#shot" + shot).attr("src","images/greenshot.png");
-			$("#shot" + shot).attr("title",currentplayer.name + " " + currentplayer.points);
+			$("#shot" + shot).attr("src", "images/greenshot.png");
+			$("#shot" + shot).attr("title", currentplayer.name + " hat " + currentplayer.points + " in Runde " + humanRound + " geworfen! Cheers!");
 			shot += 1;
 			break;
 	}
@@ -535,6 +541,11 @@ function resetMultiplier() {
 
 function calcAvg() {
 	return Math.round(((((gamemode - currentplayer.points) / currentplayer.tries) * 3) + Number.EPSILON) * 100) / 100;
+}
+
+function shotNews(title){
+	//var ide = $(this).attr('title');
+	$("#newsticker").html(title);
 }
 
 /*
