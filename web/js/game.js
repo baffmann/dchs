@@ -544,8 +544,9 @@ function calcAvg() {
 }
 
 function shotNews(title){
-	//var ide = $(this).attr('title');
-	$("#newsticker").html(title);
+	if (title != ""){
+		$("#newsticker").html(title);
+	}
 }
 
 /*
