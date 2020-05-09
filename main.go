@@ -10,16 +10,23 @@ import (
 )
 
 type Player struct {
-	ID       int      `json:"id"`
-	Name     string   `json:"name"`
-	Active   bool     `json:"active"`
-	Finished bool     `json:"finished"`
-	Points   int      `json:"points"`
-	Score    [][3]int `json:"score"`
-	Average  float64  `json:"avg"`
-	Order    int      `json:"order"`
-	Tries    int      `json:"tries"`
-	Ranking  int      `json:"ranking"`
+	ID          int      `json:"id"`
+	Name        string   `json:"name"`
+	Active      bool     `json:"active"`
+	Finished    bool     `json:"finished"`
+	Points      int      `json:"points"`
+	Score       [][3]int `json:"score"`
+	Average     float64  `json:"avg"`
+	Order       int      `json:"order"`
+	Tries       int      `json:"tries"`
+	Ranking     int      `json:"ranking"`
+	PlayerStats Stats    `json:"stats"`
+}
+
+type Stats struct {
+	BestAVG     float64 `json:"bestavg"`
+	GamesPlayed int     `json:"gamesplayed"`
+	BestScore   int     `json:"bestscore"`
 }
 
 /*type GameData struct {
