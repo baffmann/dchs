@@ -15,7 +15,7 @@ $(document).ready(function () {
 		$('[data-toggle="popover"]').popover({
 			container: 'body'
 		})
-	  })
+	})
 });
 
 list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;"><strong style="font-size: 1.2em;">';
@@ -52,8 +52,7 @@ var playerlist = [];
 var double = 1;
 var triple = 1;
 var round = 0;
-//Not in use yet, see function untilTheEnd
-//var keepPlaying = false;
+var keepPlaying = false;
 var ranking = 1;
 var shot = 1;
 
@@ -123,7 +122,23 @@ function updateList(playerid) {
 	})
 }
 
+function endGame() {
+	//Modal for finished Game
+	calcResult();
+	$("#finishedGame").modal()
+	console.log("Now we are done!!");
+}
+
 function gameFinished(stillPlaying) {
+	if (round == 3 && !keepPlaying) {
+		//If it reaches this the second time, player has chosen to play until the end
+		//If not, game is finished anyways
+		//Therefore setting keepPlaying directly to true makes sense
+		keepPlaying = true;
+		//Ask player if game should be finished
+		$("#manualFinish").modal()
+	}
+
 	if (stillPlaying == 0) {
 		return true
 	}
@@ -186,11 +201,7 @@ function next(playerid) {
 			}
 
 		} else {
-			//Modal for finished Game
-			calcResult();
-			$("#finishedGame").modal()
-			console.log("Now we are done!!");
-
+			endGame();
 		}
 	});
 }
@@ -543,8 +554,8 @@ function calcAvg() {
 	return Math.round(((((gamemode - currentplayer.points) / currentplayer.tries) * 3) + Number.EPSILON) * 100) / 100;
 }
 
-function shotNews(title){
-	if (title != ""){
+function shotNews(title) {
+	if (title != "") {
 		$("#newsticker").html(title);
 	}
 }
