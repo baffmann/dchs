@@ -36,7 +36,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	readPlayers()
-	if err := deletePlayer(tmpPlayer.Name); err != nil {
+	if err := deletePlayer(tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
 	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
@@ -71,7 +71,15 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	readArchive()
+	for _, arcPlayer := range archive {
+		if player.Name == arcPlayer.Name {
+			player = arcPlayer
+		}
+	}
+
 	//get highest id
+	//Todo: Sort and choose highest free id instead of highest id
 	id := 0
 	for _, f := range players {
 		if f.ID > id {
@@ -85,6 +93,7 @@ func createPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println("Player ", player.Name, " with id ", player.ID, " created!")
+
 	json.NewEncoder(w).Encode(&player)
 }
 

@@ -21,6 +21,18 @@ func readPlayers() {
 	}
 }
 
+func readArchive() {
+	archive = nil
+	records, _ := db.ReadAll("archive")
+	for _, f := range records {
+		playerFound := Player{}
+		if err := json.Unmarshal([]byte(f), &playerFound); err != nil {
+			fmt.Println("Error unmarshaling player database: ", err)
+		}
+		archive = append(archive, playerFound)
+	}
+}
+
 func updatePlayer(name string, player Player) (err error) {
 	if err := db.Write("players", name, player); err != nil {
 		return err
@@ -29,7 +41,10 @@ func updatePlayer(name string, player Player) (err error) {
 	return nil
 }
 
-func deletePlayer(name string) (err error) {
+func deletePlayer(name string, player Player) (err error) {
+	if err := db.Write("archive", name, player); err != nil {
+		return err
+	}
 	if err := db.Delete("players", name); err != nil {
 		return err
 	}

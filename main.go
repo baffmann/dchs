@@ -39,6 +39,7 @@ var gameData GameData*/
 var workingDir, dbDir string
 
 var players []Player
+var archive []Player
 
 func initGame() {
 	readPlayers()
