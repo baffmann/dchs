@@ -83,19 +83,15 @@ func main() {
 
 	r := mux.NewRouter()
 
-	//r.HandleFunc("/<your-url>", <function-name>).Methods("<method>")
 	r.HandleFunc("/api/delete", delete).Methods("POST")
-	//r.HandleFunc("/api/switchGame", switchGame).Methods("GET")
 	r.HandleFunc("/api/player", allplayers).Methods("GET")
-	//r.HandleFunc("/api/player/{id}", player).Methods("GET")
 	r.HandleFunc("/api/update", update).Methods("POST")
 	//Save for later
 	//r.HandleFunc("/api/gamedata", updateGameData).Methods("POST")
-
 	r.HandleFunc("/api/player", createPlayer).Methods("POST")
-	//r.HandleFunc("/api/player/points", setPoints).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
+	r.HandleFunc("/api/stats", stats).Methods("POST")
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 

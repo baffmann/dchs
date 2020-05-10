@@ -30,6 +30,16 @@ function update(player) {
     })
 };
 
+function stats(player) {
+    $.ajax({
+        type: "POST",
+        url: "/api/stats",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(player)
+    })
+};
+
 function deleteCall(player) {
     return $.ajax({
         type: "POST",
@@ -38,7 +48,7 @@ function deleteCall(player) {
         dataType: "json",
         data: JSON.stringify(player),
     })
-}
+};
 
 function reset() {
     return $.ajax({

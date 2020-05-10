@@ -126,11 +126,16 @@ function endGame() {
 	//Modal for finished Game
 	calcResult();
 	$("#finishedGame").modal()
+	$.each(allPlayers, function (index) {
+		if (allPlayers[index].active == true){
+			stats(allPlayers[index]);
+		}
+	})
 	console.log("Now we are done!!");
 }
 
 function gameFinished(stillPlaying) {
-	if (round == 3 && !keepPlaying) {
+	if (round == 20 && !keepPlaying) {
 		//If it reaches this the second time, player has chosen to play until the end
 		//If not, game is finished anyways
 		//Therefore setting keepPlaying directly to true makes sense
@@ -192,7 +197,7 @@ function next(playerid) {
 					//array is already defined when delete button was used
 					currentplayer.score.push(scores);
 				}
-				displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+				displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 				$("#spielername").html(currentplayer.name);
 
 				for (var i = 1; i < 4; i++) {
@@ -274,7 +279,7 @@ function resultsSort(a, b) {
 	return 0
 }
 
-function displayPoints(order, points, avg) {
+function displayPoints(order, points, avg, bestavg) {
 	console.log("displayPoints");
 	//console.log("order: " + order);
 	//console.log("points: " + points);
@@ -296,6 +301,7 @@ function displayPoints(order, points, avg) {
 	});
 	$('#punktzahl').html(points);
 	$("#average").html(avg);
+	$("#bestAverage").html(bestavg);
 	$("#" + order + "-points").html(points);
 
 	for (var i = 1; i < 4; i++) {
@@ -323,14 +329,14 @@ function back() {
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
 		$("#dart3").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 	} else if (typeof currentplayer.score[round][1] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][1];
 		currentplayer.score[round][1] = undefined;
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
 		$("#dart2").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 	} else if (typeof currentplayer.score[round][0] != 'undefined') {
 		$('#backbtn').attr("disabled", true);
 		currentplayer.points += currentplayer.score[round][0];
@@ -338,7 +344,7 @@ function back() {
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
 		$("#dart1").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 	}
 
 	//I'M SORRY BUT THIS IS BUGGY AS HELL
@@ -479,7 +485,7 @@ function points(btn) {
 	}
 
 	currentplayer.avg = calcAvg();
-	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 	update(currentplayer);
 
 	updateList(currentplayer.order);

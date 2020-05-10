@@ -196,6 +196,33 @@ func update(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(tmpPlayer)
 }
 
+func stats(w http.ResponseWriter, r *http.Request) {
+	var tmpPlayer Player
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&tmpPlayer)
+	if err != nil {
+		panic(err)
+	}
+	readPlayers()
+
+	for _, f := range players {
+		if f.Name == tmpPlayer.Name {
+			if tmpPlayer.Points == 0 {
+				if f.PlayerStats.BestAVG < tmpPlayer.Average {
+					f.PlayerStats.BestAVG = tmpPlayer.Average
+				}
+			}
+			f.PlayerStats.GamesPlayed++
+			if err := updatePlayer(f.Name, f); err != nil {
+				fmt.Println("Error", err)
+			}
+
+		}
+	}
+
+	json.NewEncoder(w).Encode("Stats updated succesfully")
+}
+
 /* ToDo: Save for later...maybe calc points in backend?
 func updateGameData(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GameData UPDATE")
