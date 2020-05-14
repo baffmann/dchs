@@ -11,11 +11,6 @@ $(document).ready(function () {
 		$("#newsticker").html("Newsticker: ");
 		next(playerlist[0]);
 	});
-	$(function () {
-		$('[data-toggle="popover"]').popover({
-			container: 'body'
-		})
-	})
 });
 
 list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;"><strong style="font-size: 1.2em;">';
@@ -55,6 +50,7 @@ var round = 0;
 var keepPlaying = false;
 var ranking = 1;
 var shot = 1;
+var backupScore = [];
 
 var currentplayer;
 var allPlayers;
@@ -280,10 +276,6 @@ function resultsSort(a, b) {
 }
 
 function displayPoints(order, points, avg, bestavg) {
-	console.log("displayPoints");
-	//console.log("order: " + order);
-	//console.log("points: " + points);
-	//console.log("avg:" + avg);
 	$('#punktzahl').each(function () {
 		var $this = $(this);
 		jQuery({ Counter: $this.text() }).animate({ Counter: points }, {
@@ -317,6 +309,14 @@ function back() {
 		return;
 	}
 
+	if (backupScore[0] != undefined){
+		console.log("Restoring points from backup");
+		currentplayer.points = backupScore[0].points;
+		currentplayer.score[round][0] = backupScore[0].score1;
+		currentplayer.score[round][1] = backupScore[0].score2;
+		currentplayer.score[round][2] = backupScore[0].score3;
+	}
+
 	$('#nextBtn').attr("disabled", true)
 	$('.pointbtn').attr("disabled", false);
 	$('#zerobtn').attr("disabled", false);
@@ -324,6 +324,7 @@ function back() {
 	$('#triplebtn').attr("disabled", false);
 
 	if (typeof currentplayer.score[round][2] != 'undefined') {
+		console.log("wibbbbiiiii:" + currentplayer.points)
 		currentplayer.points += currentplayer.score[round][2];
 		currentplayer.score[round][2] = undefined;
 		currentplayer.tries -= 1;
@@ -376,6 +377,7 @@ function points(btn) {
 	// if triple --> double = 1 // triple = 3
 	totalscore = (btn.value * double * triple);
 	scoredthree = false;
+	backupScore = [];
 	var dart = 1;
 
 	//set score for current throw
@@ -434,11 +436,15 @@ function points(btn) {
 		}
 
 	} else { //if ((person.points - totalscore) <= 1) && double == 1
-		for (var i = 0; i < 3; i++) {
-			$("#" + currentplayer.order + "-score-" + i).html(currentplayer.score[round][(i - 1)]);
-			console.log("else:" + i + ": " + currentplayer.score[round][i] + " " + typeof currentplayer.score[round][i]);
-		}
+		// if last click was a mistake, score and points has to be restored from backupScore in back()
+		backupScore.push({
+			points: currentplayer.points, 
+			score1: currentplayer.score[round][0], 
+			score2: currentplayer.score[round][1], 
+			score3: currentplayer.score[round][2]
+		});
 
+		console.log(backupScore);
 		switch (dart) {
 			case 1:
 				currentplayer.points += currentplayer.score[round][0];
@@ -459,10 +465,6 @@ function points(btn) {
 				currentplayer.score[round][2] = 0;
 				break;
 		}
-
-		//hacky hack....TODO: Check if necessary
-		currentplayer.points = parseInt(currentplayer.points);
-		console.log("hacky hackepeter:" + currentplayer.points);
 
 		//display throw even if scored too much for better user experience
 		switch (dart) {
@@ -566,12 +568,6 @@ function shotNews(title) {
 	}
 }
 
-/*
-//Not in use yet, can be implemented if game should finish after first player finishes
-function untilTheEnd() {
-	$("#finishedGame").modal("hide");
-	keepPlaying = true;
-}
-*/
+
 
 
