@@ -36,7 +36,7 @@ type Stats struct {
 }
 var gameData GameData*/
 
-var workingDir, dbDir string
+var workingDir, dbDir, version string
 
 var players []Player
 var archive []Player
@@ -56,19 +56,28 @@ func initGame() {
 	}
 }
 
-func main() {
-	fmt.Println("Welcome to DCHS Darts Scoreboard!")
+func getEnv() {
 	if os.Getenv("SNAP") != "" {
 		workingDir = string(os.Getenv("SNAP"))
+		dbDir = string(os.Getenv("SNAP_DATA"))
+		version = string(os.Getenv("SNAP_REVISION"))
 	} else {
 		workingDir = "."
+		dbDir = "./"
+		version = "debug"
 	}
 
 	if os.Getenv("SNAP_DATA") != "" {
 		dbDir = string(os.Getenv("SNAP_DATA"))
 	} else {
-		dbDir = "./"
+
 	}
+}
+
+func main() {
+	fmt.Println("Welcome to DCHS Darts Scoreboard!")
+
+	getEnv()
 
 	webPath := workingDir + "/web/"
 	fmt.Println("Website is hosted at " + webPath)
@@ -85,11 +94,9 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/delete", delete).Methods("POST")
-	r.HandleFunc("/api/player", allplayers).Methods("GET")
+	r.HandleFunc("/api/player", player).Methods("GET")
 	r.HandleFunc("/api/update", update).Methods("POST")
-	//Save for later
-	//r.HandleFunc("/api/gamedata", updateGameData).Methods("POST")
-	r.HandleFunc("/api/player", createPlayer).Methods("POST")
+	r.HandleFunc("/api/player", create).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
 	r.HandleFunc("/api/stats", stats).Methods("POST")

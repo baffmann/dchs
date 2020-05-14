@@ -1,4 +1,6 @@
 $(document).ready(function () {
-    reset();
+    $.when(reset()).done(function (data) {
+        $('#version').html("Version: " + data);
+    });
 });
 

@@ -112,7 +112,7 @@ body {
     float: none;
 }
 
-#spielerbutton .playerbtn{
+#spielerbutton .playerbtn {
     margin-top: 20px;
     height: 120px;
 }
@@ -256,11 +256,11 @@ body {
     width: 200px !important;
 }
 
-#scorelist .list-group-item{
+#scorelist .list-group-item {
     height: 65px;
 }
 
-.scorebadge{
+.scorebadge {
     height: 30px;
     width: 30px;
     vertical-align: middle !important;
@@ -270,7 +270,7 @@ body {
 
 .bigBtn {
     height: 70px;
-    width: 200px; 
+    width: 200px;
     font-weight: bold;
 }
 
@@ -284,6 +284,8 @@ body {
     z-index: 1;
 }
 
-
-
-
+.footer {
+    color: #DCDDDD;
+    position: absolute;
+    bottom: 0;
+}

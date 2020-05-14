@@ -324,7 +324,6 @@ function back() {
 	$('#triplebtn').attr("disabled", false);
 
 	if (typeof currentplayer.score[round][2] != 'undefined') {
-		console.log("wibbbbiiiii:" + currentplayer.points)
 		currentplayer.points += currentplayer.score[round][2];
 		currentplayer.score[round][2] = undefined;
 		currentplayer.tries -= 1;
@@ -444,7 +443,6 @@ function points(btn) {
 			score3: currentplayer.score[round][2]
 		});
 
-		console.log(backupScore);
 		switch (dart) {
 			case 1:
 				currentplayer.points += currentplayer.score[round][0];
