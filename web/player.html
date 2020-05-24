@@ -10,11 +10,9 @@
 </head>
 
 <body>
-
-
-
     <div class="page-header full-screen container-fluid d-flex flex-column">
         <div class="overlay"></div>
+        <!-- Edit Players (New/Delete) -->
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6 text-center d-flex align-items-center" style="padding: 0px;">
                 <div class="container" style="padding-top: 30px; height: 100%;">
@@ -31,20 +29,23 @@
                     </div>
                 </div>
             </div>
-            <div id="myButtons" class="col-sm-6 text-center d-flex align-items-center" style="padding: 30px;">
+
+            <!-- Gamemode (301/501) -->
+            <div id="gamemodebtn" class="col-sm-6 text-center d-flex align-items-center" style="padding: 30px;">
                 <span class="display-4 text-nowrap" style="color: #007bff;">Spielmodus</span>
-                <div class="btn-group btn-group-toggle btn-group-lg gamemode" data-toggle="buttons" style="padding-left: 20px;">
-                    <label class="btn btn-primary align-middle" style="padding-top: 25px;"> 
-                        <input type="radio" name="options" value="301" autocomplete="off">301
+                <div class="btn-group btn-group-toggle btn-group-lg gamemode" data-toggle="buttons"
+                    style="padding-left: 20px;">
+                    <label class="btn btn-primary align-middle" style="padding-top: 25px;">
+                        <input type="radio" name="options" value="301">301
                     </label>
                     <label class="btn btn-primary active" style="padding-top: 25px;">
-                        <input type="radio" name="options" value="501" autocomplete="off" checked>501
+                        <input type="radio" name="options" value="501" checked>501
                     </label>
                 </div>
             </div>
         </div>
 
-
+        <!-- Playerlist - Filled dynamically from backend -->
         <div class="jumbotron">
             <div class="container-fluid">
                 <div class="row" id="playerlist"></div>
@@ -52,26 +53,31 @@
         </div>
 
 
-
+        <!-- Bottom Menu -->
         <div class="row">
             <div class="col text-center">
-                <a href="index.html"><button type="button" class="btn btn-primary btn-lg bigBtn">Hauptmenü</button></a>
+                <form style="display: block" action="index.html" method="get">
+                    <button class="btn btn-primary btn-lg bigBtn">Hauptmenü</button>
+                </form>
             </div>
             <div class="col text-center">
-                <button type="button" id="zuruecksetzen" class="btn btn-primary btn-lg bigBtn"
-                    onClick="resetGame()">Zurücksetzen</button>
+                <form style="display: block">
+                    <button id="zuruecksetzen" class="btn btn-primary btn-lg bigBtn"
+                        onClick="resetGame()">Zurücksetzen</button>
+                </form>
             </div>
             <div class="col text-center">
-                <a href="x01.html"><button type="button" id="startGame" class="btn btn-primary btn-lg bigBtn">Spiel
-                        Starten</button></a>
+                <form style="display: block" action="x01.html" method="get">
+                    <button id="startGame" class="btn btn-primary btn-lg bigBtn">Spiel
+                        Starten</button>
+                </form>
             </div>
         </div>
     </div>
 
 
-    <!-- Spieler Modal -->
-    <div class="modal fade" id="spielerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
+    <!-- New Player Modal -->
+    <div class="modal fade" id="spielerModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -63,8 +63,6 @@ function reload() {
     });
 }
 
-
-
 function checkPlayerCount() {
     if (playercount >= 24) {
         $("#newPlayer").attr("disabled", true);
@@ -73,7 +71,7 @@ function checkPlayerCount() {
     }
 }
 
-$("#myButtons :input").change(function () {
+$("#gamemodebtn :input").change(function () {
     gamemode = $("input[name='options']:checked").val();
     gamemode = parseInt(gamemode);
     $.each(allPlayers, function (index) {
