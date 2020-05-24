@@ -1,21 +1,28 @@
 $(document).ready(function () {
-    $("#startGame").attr("disabled", true);
-    $("#zuruecksetzen").attr("disabled", true);
-    $("#title").html("Spieler auswählen: ");
-
+    initialSettings();
     reload();
 });
 
-let playerbuttonStart = '<div class="col-lg-2" id="spielerbutton"><button type="button" class="btn btn-primary btn-lg btn-block playerbtn" data-toggle="button" id="';
-let playerbuttonID = '" onClick="select(this)"><span class="badge badge-light float-left"></span>';
-let playerbuttonEnd = '</button></div>';
+function initialSettings(){
+    order = 1;
+    activecount = 0;
+    $("#startGame").attr("disabled", true);
+    $("#zuruecksetzen").attr("disabled", true);
+    $("#title").html("Spieler auswählen: ");
+    $(".playerbtn .badge.badge-light").text('');
+    $(".playerbtn").attr("disabled", false);
+    $(".playerbtn").removeClass("active");
+}
 
 function createPlayerButton(id, name) {
-    content = playerbuttonStart;
-    content += id;
-    content += playerbuttonID;
-    content += name;
-    content += playerbuttonEnd;
+    const content = `
+    <div class="col-lg-2" id="spielerbutton">
+    <button type="button" 
+    class="btn btn-primary btn-lg btn-block playerbtn" 
+    data-toggle="button" id="${id}" onClick="select(this)">
+    <span class="badge badge-light float-left"></span>
+    ${name}
+    </button></div>`;
     $('#playerlist').append(content);
 };
 
@@ -31,24 +38,6 @@ var activecount = 0;
 var deletemode = 0;
 var allPlayers;
 var order = 1;
-
-function setDelete() {
-    console.log(deletemode);
-    resetGame();
-    if (deletemode === 0) {
-        deletemode = 1;
-        $('#playerlist :button').css('background-color', 'red');
-        $("#title").html("Welcher Spieler soll gelöscht werden?");
-    } else {
-        resetDelete();
-    }
-}
-
-function resetDelete(){
-    $("#title").html("Spieler auswählen: ");
-    $('#playerlist :button').css('background-color', '');
-    deletemode = 0;
-}
 
 function reload() {
     playercount = 0;
@@ -143,21 +132,34 @@ function newPlayerBtn(){
     //reset delete mode if chosen before
     resetDelete();
     resetGame();
-} 
+}
+
+function setDelete() {
+    console.log(deletemode);
+    resetGame();
+    if (deletemode === 0) {
+        deletemode = 1;
+        $('#playerlist :button').css('background-color', 'red');
+        $("#title").html("Welcher Spieler soll gelöscht werden?");
+    } else {
+        resetDelete();
+    }
+}
+
+function resetDelete(){
+    $("#title").html("Spieler auswählen: ");
+    $('#playerlist :button').css('background-color', '');
+    deletemode = 0;
+}
 
 
 function resetGame() {
+    //reset backend via api
     reset();
     //also deactivate players in the frontend otherwise, player is active=true when gamemode (301/501) is changed 
     $.each(allPlayers, function (index) {
         allPlayers[index].active = false;
     });
-    //set back frontend
-    order = 1;
-    activecount = 0;
-    $("#startGame").attr("disabled", true);
-    $("#zuruecksetzen").attr("disabled", true);
-    $(".playerbtn .badge.badge-light").text('');
-    $(".playerbtn").attr("disabled", false);
-    $(".playerbtn").removeClass("active");
+    //reset frontend
+    initialSettings();
 };
