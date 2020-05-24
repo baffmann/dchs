@@ -10,44 +10,30 @@
 </head>
 
 <body>
-        <div class="page-header full-screen container-fluid d-flex flex-column">
-                <div class="overlay"></div>
-
+    <div class="page-header full-screen container-fluid d-flex flex-column">
+        <div class="overlay"></div>
 
         <div class="description">
             <h1 class="menutitle text-uppercase font-weight-bold">DC Hot Shots</h1>
             <p>Nur echt im Feuchten Eck!</p>
-            <p>
-                <a href="player.html">
-                    <button class="btn btn-primary btn-lg align-middle bigBtn">301/501</button>
-                </a>
-            </p>
-            <p>
-                <a href="bobs27.html">
-                    <button class="btn btn-primary btn-lg align-middle bigBtn">Bobs27</button>
-                </a>
-            </p>
-            
-            <p>
-                <a>
-                    <button class="btn btn-primary btn-lg align-middle bigBtn" onclick="quitGame()">Feierabend</button>
-                </a>
-            </p>
-            <!---
-            <p>
-                <button type="button" class="btn btn-primary btn-lg ">Start new x01-Game</button>
-            </p>
-            <p>
-                <button type="button" class="btn btn-primary btn-lg ">Einstellungen</button>
-            </p>-->
+
+            <form style="display: block; margin-top:20px;" action="player.html" method="get">
+                <button class="btn btn-primary btn-lg align-middle bigBtn">301/501</button>
+            </form>
+            <form style="display: block; margin-top:20px;" action="bobs27.html" method="get">
+                <button class="btn btn-primary btn-lg align-middle bigBtn">Bobs27</button>
+            </form>
+            <form style="display: block; margin-top:20px;">
+                <button class="btn btn-primary btn-lg align-middle bigBtn" onclick="quitGame()">Feierabend</button>
+            </form>
         </div>
 
         <footer class="footer">
             <div class="container">
-              <h2 id="version"></h2>
+                <h2 id="version"></h2>
             </div>
-          </footer>
-
+        </footer>
+    </div>
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -56,4 +42,3 @@
 </body>
 
 </html>
-
