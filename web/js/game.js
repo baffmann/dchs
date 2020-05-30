@@ -13,30 +13,29 @@ $(document).ready(function () {
 	});
 });
 
-list1 = '<li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 5px; padding-right: 5px;"><div class="col-sm-6" id="list-player-name" style="padding-left: 0px;"><strong style="font-size: 1.2em;">';
-list2 = '</strong></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
-list3 = '-score-1">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
-list4 = '-score-2">-</span></div><div class="col-lg-1 text-center" style="padding: 0;"><span class="badge badge-primary scorebadge" id="';
-list5 = '-score-3">-</span></div><strong style="font-size: 1.2em;"><div class="col-lg-3 text-center" id="';
-list6 = '-points" style="padding-right: 0;">';
-list7 = '</div></strong></li>';
-
 //generate html for list on the rhs
 function createPlayerList(player) {
-	console.log(player);
-	content = list1;
-	content += player.name;
-	content += list2;
-	content += player.order;
-	content += list3;
-	content += player.order;
-	content += list4;
-	content += player.order;
-	content += list5;
-	content += player.order;
-	content += list6;
-	content += player.points;
-	content += list7;
+	const content = `
+	<li class="list-group-item d-flex justify-content-between align-items-center" 
+	style="padding-left: 5px; padding-right: 5px;">
+	<div class="col-sm-6" id="list-player-name" 
+	style="padding-left: 0px;"><strong style="font-size: 1.2em;">
+	${player.name}</strong></div>
+	<div class="col-lg-1 text-center" style="padding: 0;">
+	<span class="badge badge-primary scorebadge" 
+	id="${player.order}-score-1">-</span>
+	</div><div class="col-lg-1 text-center" style="padding: 0;">
+	<span class="badge badge-primary scorebadge" 
+	id="${player.order}-score-2">-</span>
+	</div><div class="col-lg-1 text-center" style="padding: 0;">
+	<span class="badge badge-primary scorebadge" 
+	id="${player.order}-score-3">-</span>
+	</div><strong style="font-size: 1.2em;">
+	<div class="col-lg-3 text-center" 
+	id="${player.order}-points" style="padding-right: 0;">
+	${player.points}
+	</div></strong></li>
+	`
 	$('#scorelist').append(content);
 };
 
@@ -123,7 +122,7 @@ function endGame() {
 	calcResult();
 	$("#finishedGame").modal()
 	$.each(allPlayers, function (index) {
-		if (allPlayers[index].active == true){
+		if (allPlayers[index].active == true) {
 			stats(allPlayers[index]);
 		}
 	})
@@ -309,7 +308,7 @@ function back() {
 		return;
 	}
 
-	if (backupScore[0] != undefined){
+	if (backupScore[0] != undefined) {
 		console.log("Restoring points from backup");
 		currentplayer.points = backupScore[0].points;
 		currentplayer.score[round][0] = backupScore[0].score1;
@@ -437,9 +436,9 @@ function points(btn) {
 	} else { //if ((person.points - totalscore) <= 1) && double == 1
 		// if last click was a mistake, score and points has to be restored from backupScore in back()
 		backupScore.push({
-			points: currentplayer.points, 
-			score1: currentplayer.score[round][0], 
-			score2: currentplayer.score[round][1], 
+			points: currentplayer.points,
+			score1: currentplayer.score[round][0],
+			score2: currentplayer.score[round][1],
 			score3: currentplayer.score[round][2]
 		});
 

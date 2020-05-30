@@ -25,7 +25,7 @@ function initialSettings(){
     $(".playerbtn .badge.badge-light").text('');
     $(".playerbtn").attr("disabled", false);
     $(".playerbtn").removeClass("active");
-};
+}
 
 function createPlayerButton(id, name) {
     const content = `
@@ -37,7 +37,7 @@ function createPlayerButton(id, name) {
     ${name}
     </button></div>`;
     $('#playerlist').append(content);
-};
+}
 
 function reload() {
     playercount = 0;
@@ -50,7 +50,7 @@ function reload() {
         });
         checkPlayerCount();
     });
-};
+}
 
 function checkPlayerCount() {
     if (playercount >= 24) {
@@ -124,9 +124,7 @@ function select(btn) {
             order += 1;
         });
     }
-};
-
-
+}
 
 function newPlayerBtn(){
     //reset delete mode if chosen before
@@ -162,4 +160,4 @@ function resetGame() {
     });
     //reset frontend
     initialSettings();
-};
+}
