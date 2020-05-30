@@ -3,29 +3,6 @@ $(document).ready(function () {
     reload();
 });
 
-function initialSettings(){
-    order = 1;
-    activecount = 0;
-    $("#startGame").attr("disabled", true);
-    $("#zuruecksetzen").attr("disabled", true);
-    $("#title").html("Spieler auswählen: ");
-    $(".playerbtn .badge.badge-light").text('');
-    $(".playerbtn").attr("disabled", false);
-    $(".playerbtn").removeClass("active");
-}
-
-function createPlayerButton(id, name) {
-    const content = `
-    <div class="col-lg-2" id="spielerbutton">
-    <button type="button" 
-    class="btn btn-primary btn-lg btn-block playerbtn" 
-    data-toggle="button" id="${id}" onClick="select(this)">
-    <span class="badge badge-light float-left"></span>
-    ${name}
-    </button></div>`;
-    $('#playerlist').append(content);
-};
-
 var person = {
     name: '',
     status: '',
@@ -39,6 +16,29 @@ var deletemode = 0;
 var allPlayers;
 var order = 1;
 
+function initialSettings(){
+    order = 1;
+    activecount = 0;
+    $("#startGame").attr("disabled", true);
+    $("#zuruecksetzen").attr("disabled", true);
+    $("#title").html("Spieler auswählen: ");
+    $(".playerbtn .badge.badge-light").text('');
+    $(".playerbtn").attr("disabled", false);
+    $(".playerbtn").removeClass("active");
+};
+
+function createPlayerButton(id, name) {
+    const content = `
+    <div class="col-lg-2" id="spielerbutton">
+    <button type="button" 
+    class="btn btn-primary btn-lg btn-block playerbtn" 
+    data-toggle="button" id="${id}" onClick="select(this)">
+    <span class="badge badge-light float-left"></span>
+    ${name}
+    </button></div>`;
+    $('#playerlist').append(content);
+};
+
 function reload() {
     playercount = 0;
     $('#playerlist').empty();
@@ -50,7 +50,7 @@ function reload() {
         });
         checkPlayerCount();
     });
-}
+};
 
 function checkPlayerCount() {
     if (playercount >= 24) {
