@@ -13,6 +13,21 @@ $(document).ready(function () {
 	});
 });
 
+var gamemode;
+var playercount = 0;
+var index = 0;
+var playerlist = [];
+var double = 1;
+var triple = 1;
+var round = 0;
+var keepPlaying = false;
+var ranking = 1;
+var shot = 1;
+var backupScore = [];
+
+var currentplayer;
+var allPlayers;
+
 //generate html for list on the rhs
 function createPlayerList(player) {
 	const content = `
@@ -39,21 +54,6 @@ function createPlayerList(player) {
 	$('#scorelist').append(content);
 };
 
-var gamemode;
-var playercount = 0;
-var index = 0;
-var playerlist = [];
-var double = 1;
-var triple = 1;
-var round = 0;
-var keepPlaying = false;
-var ranking = 1;
-var shot = 1;
-var backupScore = [];
-
-var currentplayer;
-var allPlayers;
-
 
 function doubleActive() {
 	if (double === 2) {
@@ -72,13 +72,13 @@ function tripleActive() {
 	if (triple === 3) {
 		triple = 1;
 		$("#triplebtn").removeClass("active");
-		$('#pointbtn[value="25"]').attr("disabled", false);
+		$('.pointbtn[value="25"]').attr("disabled", false);
 		$('#doublebtn').attr("disabled", false);
 		$('.pointbtn').css("background", "");
 	} else {
 		triple = 3;
 		$('.pointbtn').css("background", "rgb(190, 63, 3)");
-		$('#pointbtn[value="25"]').attr("disabled", true);
+		$('.pointbtn[value="25"]').attr("disabled", true);
 		$('#doublebtn').attr("disabled", true);
 	}
 }
@@ -551,7 +551,7 @@ function resetMultiplier() {
 	triple = 1;
 	$("#triplebtn").removeClass("active");
 	$('#triplebtn').attr("disabled", false);
-	$('#pointbtn[value="25"]').attr("disabled", false);
+	$('.pointbtn[value="25"]').attr("disabled", false);
 	$('.pointbtn').css("background", "");
 }
 

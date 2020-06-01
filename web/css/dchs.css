@@ -195,7 +195,7 @@ body {
 
 */
 
-#pointbtn {
+.pointbtn {
     background: whitesmoke;
     color: black;
     font-size: 2em;
@@ -204,9 +204,11 @@ body {
     transition: 0s 100ms;
 }
 
-#pointbtn:active {
+.btn-primary:not(:disabled):not(.disabled).pointbtn:active {
     background: red;
+    background-color: red;
     transition: 0s;
+    border: 0px;
 }
 
 #zerobtn,
