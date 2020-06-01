@@ -2,7 +2,9 @@ $(document).ready(function () {
 	$.when(getPlayers()).done(function (data) {
 		$.each(data, function (index) {
 			if (data[index].active == true) {
-				createPlayerList(data[index]);
+				$('#player'+data[index].order).removeClass("invisible");
+				$('#list-player-'+data[index].order).html(data[index].name);
+				$('#'+data[index].order+'-points').html(data[index].points);
 				playerlist.push(data[index].id);
 				playercount += 1;
 			}
@@ -27,32 +29,6 @@ var backupScore = [];
 
 var currentplayer;
 var allPlayers;
-
-//generate html for list on the rhs
-function createPlayerList(player) {
-	const content = `
-	<li class="list-group-item d-flex justify-content-between align-items-center" 
-	style="padding-left: 5px; padding-right: 5px;">
-	<div class="col-sm-6" id="list-player-name" 
-	style="padding-left: 0px;"><strong style="font-size: 1.2em;">
-	${player.name}</strong></div>
-	<div class="col-lg-1 text-center" style="padding: 0;">
-	<span class="badge badge-primary scorebadge" 
-	id="${player.order}-score-1">-</span>
-	</div><div class="col-lg-1 text-center" style="padding: 0;">
-	<span class="badge badge-primary scorebadge" 
-	id="${player.order}-score-2">-</span>
-	</div><div class="col-lg-1 text-center" style="padding: 0;">
-	<span class="badge badge-primary scorebadge" 
-	id="${player.order}-score-3">-</span>
-	</div><strong style="font-size: 1.2em;">
-	<div class="col-lg-3 text-center" 
-	id="${player.order}-points" style="padding-right: 0;">
-	${player.points}
-	</div></strong></li>
-	`
-	$('#scorelist').append(content);
-};
 
 
 function doubleActive() {
