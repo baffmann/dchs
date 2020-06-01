@@ -58,20 +58,20 @@
                                     </div>
                                     <div class="row justify-content-center flex-grow-1 h-50">
                                         <div class="col text-center">
-                                            <img class="shotImg" id="shot1" src="images/shot.png" height="80" width="80"
-                                                onclick="shotNews(this.title)">
+                                            <img class="shotImg" id="shot1" src="images/shot.png" alt="shotglas"
+                                                height="80" width="80" onclick="shotNews(this.title)">
                                         </div>
                                         <div class="col text-center">
-                                            <img class="shotImg" id="shot2" src="images/shot.png" height="80" width="80"
-                                                onclick="shotNews(this.title)">
+                                            <img class="shotImg" id="shot2" src="images/shot.png" alt="shotglas"
+                                                height="80" width="80" onclick="shotNews(this.title)">
                                         </div>
                                         <div class="col text-center">
-                                            <img class="shotImg" id="shot3" src="images/shot.png" height="80" width="80"
-                                                onclick="shotNews(this.title)">
+                                            <img class="shotImg" id="shot3" src="images/shot.png" alt="shotglas"
+                                                height="80" width="80" onclick="shotNews(this.title)">
                                         </div>
                                         <div class="col text-center">
-                                            <img class="shotImg" id="shot4" src="images/shot.png" height="80" width="80"
-                                                onclick="shotNews(this.title)">
+                                            <img class="shotImg" id="shot4" src="images/shot.png" alt="shotglas"
+                                                height="80" width="80" onclick="shotNews(this.title)">
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,8 @@
                                 </div>
                                 <div class="col centerGameButtons">
                                     <button type="button" class="btn btn-primary btn-lg btn-block" id="backbtn"
-                                        onclick="back()"> <img src="images/trash.png" height="60" width="60">
+                                        onclick="back()"> <img src="images/trash.png" alt="trash" height="60"
+                                            width="60">
                                     </button>
                                 </div>
                             </div>
@@ -206,11 +207,11 @@
                 <div class="col-3 hidden-md-down" id="startinglist">
                     <div class="row justify-content-center h-100" style="padding-bottom: 60px;">
                         <div class="col-6 text-center" style="padding-bottom: 15px;">
-                            <button type="button" id="mainmenuBtn" class="btn btn-primary btn-lg" data-toggle="modal"
+                            <button type="button" class="btn btn-primary btn-lg menuBtn" data-toggle="modal"
                                 data-target="#manualFinish">Feierabend</button>
                         </div>
                         <div class="col-6 text-center" style="padding-bottom: 15px;">
-                            <button type="button" id="mainmenuBtn" class="btn btn-primary btn-lg" data-toggle="modal"
+                            <button type="button" class="btn btn-primary btn-lg menuBtn" data-toggle="modal"
                                 data-target="#mainMenuModal">Hauptmenü</button>
                         </div>
                         <div class="col-12" id="h85">
@@ -230,12 +231,11 @@
     </div>
 
     <!-- Finished Game Modal -->
-    <div class="modal fade" id="finishedGame" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="finishedGame" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Ergebnis</h5>
+                    <h5 class="modal-title">Ergebnis</h5>
                 </div>
 
                 <div class="modal-body">
@@ -263,8 +263,9 @@
                     <!--
                         Insert "Back" Button if last click was an error and game is not finished yet
                     -->
-
-                    <a href="index.html"><button type="button" class="btn btn-primary btn-lg">Hauptmenü</button></a>
+                    <form style="display: inline" action="index.html" method="get">
+                        <button type="submit" class="btn btn-primary btn-lg">Hauptmenü</button>
+                    </form>
                 </div>
 
             </div>
@@ -276,16 +277,18 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Spiel abbrechen und zurück zum Hauptmenü?
+                    <h5 class="modal-title">Spiel abbrechen und zurück zum Hauptmenü?
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="margin: 0 auto;">
-                    <a href="index.html"><button id="neuerSpieler" type="submit" class="btn btn-default"
-                            style="background-color: #007bff; color: white; margin-right:20px;">Ja</button></a>
-                    <button id="neuerSpieler" type="submit" class="btn btn-default" data-dismiss="modal"
+                    <form style="display: inline" action="index.html" method="get">
+                        <button type="submit" class="btn btn-default"
+                            style="background-color: #007bff; color: white; margin-right:20px;">Ja</button>
+                    </form>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal"
                         style="background-color: #007bff; color: white; margin-left:20px;">Nein</button>
                 </div>
                 <div class="modal-footer">
@@ -299,17 +302,18 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Feierabend?
+                    <h5 class="modal-title">Feierabend?
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="margin: 0 auto;">
-                    <button id="neuerSpieler" type="submit" class="btn btn-default" data-dismiss="modal"
-                            style="background-color: #007bff; color: white; margin-right:20px;">Weiterspielen</button>
-                    <button id="neuerSpieler" type="submit" class="btn btn-default" data-dismiss="modal"
-                        style="background-color: #007bff; color: white; margin-left:20px;" onclick="endGame()">Ergebnis</button>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal"
+                        style="background-color: #007bff; color: white; margin-right:20px;">Weiterspielen</button>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal"
+                        style="background-color: #007bff; color: white; margin-left:20px;"
+                        onclick="endGame()">Ergebnis</button>
                 </div>
                 <div class="modal-footer">
                 </div>
