@@ -3,6 +3,7 @@ body {
     margin: 0;
     background: #f2f6e9;
     height: 100%;
+    overflow: hidden;
 }
 
 
@@ -12,9 +13,7 @@ body {
     background-image: url('../images/bg.jpg');
     background-size: cover;
     background-position: center;
-    position: relative;
     height: 100vh;
-    box-sizing: border-box;
 }
 
 .overlay {
@@ -35,35 +34,55 @@ body {
     background: rgba(204, 204, 204, 0.5);
 }
 
-#h10 {
+.h10 {
     height: 10%;
 }
 
-#h20 {
+.h15 {
+    height: 15%;
+}
+
+.h20 {
     height: 20%;
 }
 
-#h30 {
+.h25 {
+    height: 25%;
+}
+
+.h30 {
     height: 30%;
 }
 
-#h70 {
+.h50 {
+    height: 50%;
+}
+
+.h60 {
+    height: 60%;
+}
+
+.h70 {
     height: 70%;
 }
 
-#h80 {
+.h75 {
+    height: 75%;
+}
+
+.h80 {
     height: 80%;
 }
 
-#h85 {
+.h85 {
     height: 85%;
 }
 
-#h90 {
+.h90 {
     height: 90%;
 }
 
-#h100 {
+.h100 {
     height: 100%;
 }
 
@@ -74,26 +93,6 @@ body {
 .jumbotron {
     padding-bottom: 0px;
     padding-top: 0px;
-}
-
-#startinglist {
-    padding-top: 20px;
-    height: 100%;
-    /*background: green;*/
-}
-
-#green {
-    height: 100%;
-    /*background: green;*/
-}
-
-.centerGameButtons {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-#spielername {
-    margin-top: 20px;
 }
 
 .full-height {
@@ -198,9 +197,9 @@ body {
 .pointbtn {
     background: whitesmoke;
     color: black;
-    font-size: 2em;
-    width: 170px !important;
-    height: 150px !important;
+    font-size: 3em;
+    width: 100%;
+    height: 100%;
     transition: 0s 100ms;
 }
 
@@ -212,28 +211,38 @@ body {
 }
 
 #zerobtn,
+#backbtn,
+#doublebtn,
+#triplebtn,
+#nextBtn {
+    font-size: 3vw;
+    width: 100%;
+    height: 100%;
+    transition: 0s 100ms;
+}
+
+
+.menuBtn {
+    font-size: 1.5vw;
+    width: 100%;
+    height: 100%;
+    transition: 0s 100ms;
+}
+
+#zerobtn,
 #backbtn {
     background: whitesmoke;
     color: black;
-    font-size: 2em;
-    height: 90px !important;
-    transition: 0s 100ms;
 }
 
 #doublebtn {
     background: rgb(105, 184, 3);
     color: black;
-    font-size: 2em;
-    height: 90px !important;
-    transition: 0s 100ms;
 }
 
 #triplebtn {
     background: rgb(190, 63, 3);
     color: black;
-    font-size: 2em;
-    height: 90px !important;
-    transition: 0s 100ms;
 }
 
 #zerobtn:active,
@@ -242,20 +251,18 @@ body {
     transition: 0s;
 }
 
-#punktzahl,
-#spielername,
-#newsticker {
+.gameinfo{
+    color: white;
+    font-size:2vw; 
+    margin: 0;
+}
+
+#punktzahl {
+    color: white;
+    font-size:7vw; 
+    margin: 0; 
+    line-height: 100%;
     text-shadow: 2px 2px 3px #000;
-}
-
-#nextBtn {
-    height: 70px !important;
-    width: 200px !important;
-}
-
-.menuBtn {
-    height: 70px !important;
-    width: 200px !important;
 }
 
 #scorelist .list-group-item {
@@ -284,6 +291,8 @@ body {
 .shotImg {
     position: relative;
     z-index: 1;
+    max-width: 100%;
+    height: auto;
 }
 
 .footer {
