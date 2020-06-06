@@ -10,8 +10,19 @@
 </head>
 
 <body>
+
     <div class="full-screen container-fluid">
-        <div class="overlay"></div>
+        <div class="overlay align-items-center">
+            <div class="row" style="width:100%">
+                <div class="col"></div>
+                <div class="col-lg-6">
+                    <div class="alert alert-success text-center" role="alert" id="shot-alert" style="z-index: 1;">
+                    </div>
+                </div>  
+                <div class="col"></div>  
+            </div>
+ 
+        </div>
 
         <div class="row h100">
 
@@ -47,7 +58,7 @@
                         </div>
                     </div>
                     <!--round and shot icons-->
-                    <div class="col h80">
+                    <div class="col h90">
                         <div class="row justify-content-center align-items-center h50">
                             <div class="col text-center">
                                 <p class="gameinfo" id="roundnumber">Runde: 0</p>
@@ -73,8 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 text-center h20">
-                        <h4 id="newsticker" style="color: white;">Newsticker: Hello World</h4>
+                    <div class="col-12 text-center h10">
                         <hr class="my-2" style="border-top: 5px dashed white;">
                     </div>
                 </div>
@@ -184,8 +194,8 @@
                 </div>
 
                 <div class="row" style="margin-top: 20px;">
-                    <div class="col ">
-                        <button type="button" class="btn btn-primary btn-block" value="0" id="zerobtn"
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-primary btn-block pointbtn" value="0" id="zerobtn"
                             onclick="points(this)">0</button>
                     </div>
                     <div class="col ">
@@ -197,7 +207,8 @@
                             data-toggle="button" onclick="tripleActive()">3x</button>
                     </div>
                     <div class="col ">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" id="backbtn" onclick="back()">
+                        <button type="button" class="btn btn-primary btn-lg btn-block pointbtn" id="backbtn"
+                            onclick="back()">
                             <img src="images/trash.png" alt="trash" height="60" width="60">
                         </button>
                     </div>
@@ -228,10 +239,8 @@
                             <li id="player1"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-1" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong>
-                                </div>
+                                <div class="col-sm-6" id="list-player-1"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="1-score-1">-</span>
                                 </div>
@@ -250,9 +259,8 @@
                             <li id="player2"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-2" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-2"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="2-score-1">-</span>
                                 </div>
@@ -270,9 +278,8 @@
                             <li id="player3"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-3" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-3"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="3-score-1">-</span>
                                 </div>
@@ -291,9 +298,8 @@
                             <li id="player4"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-4" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-4"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="4-score-1">-</span>
                                 </div>
@@ -312,9 +318,8 @@
                             <li id="player5"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-5" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-5"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="5-score-1">-</span>
                                 </div>
@@ -333,9 +338,8 @@
                             <li id="player6"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-6" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-6"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="6-score-1">-</span>
                                 </div>
@@ -354,9 +358,8 @@
                             <li id="player7"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-7" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-7"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="7-score-1">-</span>
                                 </div>
@@ -375,9 +378,8 @@
                             <li id="player8"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-8" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-8"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="8-score-1">-</span>
                                 </div>
@@ -396,9 +398,8 @@
                             <li id="player9"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-9" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-9"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="9-score-1">-</span>
                                 </div>
@@ -417,9 +418,8 @@
                             <li id="player10"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-10" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-10"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="10-score-1">-</span>
                                 </div>
@@ -438,9 +438,8 @@
                             <li id="player11"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-11" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-11"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="11-score-1">-</span>
                                 </div>
@@ -459,9 +458,8 @@
                             <li id="player12"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
                                 style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-12" style="padding-left: 0px;"><strong
-                                        style="font-size: 1.2em;">
-                                    </strong></div>
+                                <div class="col-sm-6" id="list-player-12"
+                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
                                 <div class="col-lg-1 text-center" style="padding: 0;">
                                     <span class="badge badge-primary scorebadge" id="12-score-1">-</span>
                                 </div>
@@ -486,7 +484,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -581,8 +578,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>

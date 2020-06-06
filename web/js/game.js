@@ -2,15 +2,15 @@ $(document).ready(function () {
 	$.when(getPlayers()).done(function (data) {
 		$.each(data, function (index) {
 			if (data[index].active == true) {
-				$('#player'+data[index].order).removeClass("invisible");
-				$('#list-player-'+data[index].order).html(data[index].name);
-				$('#'+data[index].order+'-points').html(data[index].points);
+				$('#player' + data[index].order).removeClass("invisible");
+				$('#list-player-' + data[index].order).html(data[index].name);
+				$('#' + data[index].order + '-points').html(data[index].points);
 				playerlist.push(data[index].id);
 				playercount += 1;
 			}
 		});
+		$('#shot-alert').hide();
 		gamemode = data[index].points;
-		$("#newsticker").html("Newsticker: ");
 		next(playerlist[0]);
 	});
 });
@@ -29,7 +29,6 @@ var backupScore = [];
 
 var currentplayer;
 var allPlayers;
-
 
 function doubleActive() {
 	if (double === 2) {
@@ -156,8 +155,6 @@ function next(playerid) {
 				}
 				next(playerlist[index]);
 			} else {
-				//console.log(currentplayer.name + " ist an der Reihe");
-				$("#newsticker").html("Newsticker: " + currentplayer.name + " ist an der Reihe");
 				var scores = [];
 				var rounds = [];
 				if (currentplayer.score == null) {
@@ -382,15 +379,12 @@ function points(btn) {
 		switch (dart) {
 			case 1:
 				$("#dart1").html(totalscore);
-				$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte mit dem ersten Dart!");
 				break;
 			case 2:
 				$("#dart2").html(totalscore);
-				$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte mit dem zweiten Dart!");
 				break;
 			case 3:
 				$("#dart3").html(totalscore);
-				$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte mit dem dritten Dart!");
 				break;
 		}
 
@@ -455,7 +449,6 @@ function points(btn) {
 				break;
 		}
 
-		$("#newsticker").html("Newsticker: " + currentplayer.name + " wirft " + totalscore + " Punkte! No Score!");
 		scoredthree = true;
 	}
 
@@ -537,7 +530,10 @@ function calcAvg() {
 
 function shotNews(title) {
 	if (title != "") {
-		$("#newsticker").html(title);
+		$("#shot-alert").html(title);
+		$("#shot-alert").fadeTo(2000, 500).slideUp(500, function () {
+			$("#shot-alert").slideUp(500);
+		});
 	}
 }
 

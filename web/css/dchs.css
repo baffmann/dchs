@@ -204,15 +204,14 @@ body {
 }
 
 .btn-primary:not(:disabled):not(.disabled).pointbtn:active,
-.btn-primary:not(:disabled):not(.disabled).zerobtn:active {
+.btn-primary:not(:disabled):not(.disabled)#zerobtn:active,
+.btn-primary:not(:disabled):not(.disabled)#backbtn:active {
     color: black;
     background-color: whitesmoke;
     transition: 0s;
     border: 0px;
 }
 
-#zerobtn,
-#backbtn,
 #doublebtn,
 #triplebtn,
 #nextBtn {
@@ -222,11 +221,6 @@ body {
     transition: 0s 100ms;
 }
 
-#zerobtn,
-#backbtn {
-    background: whitesmoke;
-    color: black;
-}
 
 #doublebtn {
     background: rgb(105, 184, 3);
@@ -236,12 +230,6 @@ body {
 #triplebtn {
     background: rgb(190, 63, 3);
     color: black;
-}
-
-#zerobtn:active,
-#backbtn:active {
-    background: whitesmoke;
-    transition: 0s;
 }
 
 .menuBtn {
