@@ -33,9 +33,9 @@ function createPlayerButton(id, name) {
     <button type="button" 
     class="btn btn-primary btn-lg btn-block playerbtn" 
     data-toggle="button" id="${id}" onClick="select(this)">
-    <span class="badge badge-light float-left"></span>
+    <span class="badge badge-light float-left"></span><strong>
     ${name}
-    </button></div>`;
+    </strong></button></div>`;
     $('#playerlist').append(content);
 }
 

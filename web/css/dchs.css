@@ -203,9 +203,10 @@ body {
     transition: 0s 100ms;
 }
 
-.btn-primary:not(:disabled):not(.disabled).pointbtn:active {
-    background: red;
-    background-color: red;
+.btn-primary:not(:disabled):not(.disabled).pointbtn:active,
+.btn-primary:not(:disabled):not(.disabled).zerobtn:active {
+    color: black;
+    background-color: whitesmoke;
     transition: 0s;
     border: 0px;
 }
@@ -216,14 +217,6 @@ body {
 #triplebtn,
 #nextBtn {
     font-size: 3vw;
-    width: 100%;
-    height: 100%;
-    transition: 0s 100ms;
-}
-
-
-.menuBtn {
-    font-size: 1.5vw;
     width: 100%;
     height: 100%;
     transition: 0s 100ms;
@@ -247,8 +240,15 @@ body {
 
 #zerobtn:active,
 #backbtn:active {
-    background: red;
+    background: whitesmoke;
     transition: 0s;
+}
+
+.menuBtn {
+    font-size: 1.5vw;
+    width: 100%;
+    height: 100%;
+    transition: 0s 100ms;
 }
 
 .gameinfo{
