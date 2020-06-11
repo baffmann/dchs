@@ -200,7 +200,7 @@ body {
     font-size: 3em;
     width: 100%;
     height: 100%;
-    transition: 0s 100ms;
+    transition: 300ms;
 }
 
 .btn-primary, 
@@ -212,7 +212,7 @@ body {
     box-shadow: none; 
 }
 
-.btn-primary:hover {
+.btn-primary.pointbtn:hover {
     outline: none !important;
     box-shadow: none;
     color: black; 
