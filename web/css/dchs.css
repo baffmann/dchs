@@ -200,7 +200,10 @@ body {
     font-size: 3em;
     width: 100%;
     height: 100%;
-    transition: 300ms;
+    -webkit-transition-duration: all 0.5s ease 0s;
+    -moz-transition-duration: all 0.5s ease 0s;
+    -o-transition-duration: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
 }
 
 .btn-primary, 
