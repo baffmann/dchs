@@ -203,11 +203,29 @@ body {
     transition: 0s 100ms;
 }
 
+.btn-primary, 
+.btn-primary:active, 
+.btn-primary:active:focus, 
+.btn-primary:visited, 
+.btn-primary:focus {          
+    outline: none !important;
+    box-shadow: none; 
+}
+
+.btn-primary:hover {
+    outline: none !important;
+    box-shadow: none;
+    color: black; 
+    background-color: #fff !important;
+    border-color: #fff !important;
+    text-decoration: none;
+}
+
 .btn-primary:not(:disabled):not(.disabled).pointbtn:active,
 .btn-primary:not(:disabled):not(.disabled)#zerobtn:active,
 .btn-primary:not(:disabled):not(.disabled)#backbtn:active {
-    color: black;
-    background-color: whitesmoke;
+    color: white;
+    background-color: #007bff;
     transition: 0s;
     border: 0px;
 }
