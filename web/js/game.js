@@ -416,12 +416,19 @@ function points(btn) {
 			case 1:
 				currentplayer.points += currentplayer.score[round][0];
 				currentplayer.score[round][0] = 0;
+				currentplayer.score[round][1] = 0;
+				currentplayer.score[round][2] = 0;
+				//Overthrown is calculated like three times zero
+				currentplayer.tries += 2;
 				break;
 			case 2:
 				currentplayer.points += currentplayer.score[round][0];
 				currentplayer.points += currentplayer.score[round][1];
 				currentplayer.score[round][0] = 0;
 				currentplayer.score[round][1] = 0;
+				currentplayer.score[round][2] = 0;
+				//Overthrown is calculated like three times zero
+				currentplayer.tries += 1;
 				break;
 			case 3:
 				currentplayer.points += currentplayer.score[round][0];

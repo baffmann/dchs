@@ -217,15 +217,24 @@ body {
     outline: none !important;
     box-shadow: none;
     color: black; 
-    background-color: #fff !important;
-    border-color: #fff !important;
+    background-color: whitesmoke !important;
+    border-color: none !important;
+    text-decoration: none;
+}
+
+.btn-primary.pointbtn[disabled]:hover {
+    outline: none !important;
+    box-shadow: none;
+    color: whitesmoke; 
+    background-color: #007bff !important;
+    border-color: none !important;
     text-decoration: none;
 }
 
 .btn-primary:not(:disabled):not(.disabled).pointbtn:active,
 .btn-primary:not(:disabled):not(.disabled)#zerobtn:active,
 .btn-primary:not(:disabled):not(.disabled)#backbtn:active {
-    color: white;
+    color: whitesmoke;
     background-color: #007bff !important;;
     transition: 0s;
     border: 0px;
