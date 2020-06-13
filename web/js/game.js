@@ -284,6 +284,7 @@ function back() {
 	if (backupScore[0] != undefined) {
 		console.log("Restoring points from backup");
 		currentplayer.points = backupScore[0].points;
+		currentplayer.tries = backupScore[0].tries;
 		currentplayer.score[round][0] = backupScore[0].score1;
 		currentplayer.score[round][1] = backupScore[0].score2;
 		currentplayer.score[round][2] = backupScore[0].score3;
@@ -403,10 +404,11 @@ function points(btn) {
 
 		}
 
-	} else { //if ((person.points - totalscore) <= 1) && double == 1
+	} else { //if ((currentplayer.points - totalscore) <= 1) && double == 1
 		// if last click was a mistake, score and points has to be restored from backupScore in back()
 		backupScore.push({
 			points: currentplayer.points,
+			tries: currentplayer.tries,
 			score1: currentplayer.score[round][0],
 			score2: currentplayer.score[round][1],
 			score3: currentplayer.score[round][2]
