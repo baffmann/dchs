@@ -58,7 +58,7 @@ function tripleActive() {
 	}
 }
 
-function updateList(playerid) {
+function updateList() {
 	//console.log("updateList called for playerid: " + playerid);
 	$.each(allPlayers, function (index) {
 		//console.log("allPlayers[index].id: " + allPlayers[index].id);
@@ -79,12 +79,17 @@ function updateList(playerid) {
 					//console.log("if undef " + order);
 					//check if player threw three darts..must atleast have one score
 					for (var i = 0; i < 3; i++) {
+						console.log(typeof score[round - 1][i])
 						$("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
 					}
 				} else {
-					//console.log("or else..." + order);
+					console.log("or else..." + order);
 					for (var i = 0; i < 3; i++) {
-						$("#" + order + "-score-" + (i + 1)).html(score[round][i])
+						if (typeof score[round][i] == 'undefined'){
+							$("#" + order + "-score-" + (i + 1)).html("-")
+						} else {
+							$("#" + order + "-score-" + (i + 1)).html(score[round][i])
+						}
 					}
 				}
 
@@ -147,7 +152,7 @@ function next(playerid) {
 		});
 		//console.log("Stillplaying: " + stillPlaying);
 		if (!gameFinished(stillPlaying)) {
-			updateList(playerid);
+			updateList();
 			if (currentplayer.finished == true) {
 				//console.log("currentplayer finished");
 				index += 1;
@@ -270,9 +275,10 @@ function displayPoints(order, points, avg, bestavg) {
 	$("#bestAverage").html(bestavg);
 	$("#" + order + "-points").html(points);
 
-	for (var i = 1; i < 4; i++) {
+	updateList();
+	/*for (var i = 1; i < 4; i++) {
 		$("#" + order + "-score-" + i).html("-");
-	}
+	}*/
 
 }
 
@@ -467,7 +473,7 @@ function points(btn) {
 	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
 	update(currentplayer);
 
-	updateList(currentplayer.order);
+	updateList();
 
 	resetMultiplier();
 
