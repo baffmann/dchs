@@ -59,9 +59,10 @@ function tripleActive() {
 }
 
 function updateList(playerid) {
-	console.log("updateList called for playerid: " + playerid);
+	//console.log("updateList called for playerid: " + playerid);
 	$.each(allPlayers, function (index) {
-		if (allPlayers[index].id != playerid && allPlayers[index].active == true && allPlayers[index].finished == false) {
+		//console.log("allPlayers[index].id: " + allPlayers[index].id);
+		if (allPlayers[index].active == true && allPlayers[index].finished == false) {
 			order = allPlayers[index].order;
 			score = allPlayers[index].score;
 			//score is null in the beginning of a game
@@ -72,15 +73,16 @@ function updateList(playerid) {
 			} else {
 				//when next round starts, show results of last round
 				//console.log("score is NOT null");
+				
 				//console.log("updateList: " + score[round]);
 				if (typeof score[round] == 'undefined') {
-					//console.log("if undef");
+					//console.log("if undef " + order);
 					//check if player threw three darts..must atleast have one score
 					for (var i = 0; i < 3; i++) {
 						$("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
 					}
 				} else {
-					//console.log("or else...");
+					//console.log("or else..." + order);
 					for (var i = 0; i < 3; i++) {
 						$("#" + order + "-score-" + (i + 1)).html(score[round][i])
 					}

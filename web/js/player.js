@@ -107,7 +107,7 @@ function select(btn) {
         });
     } else {
         //player gets selected for the game
-        if (activecount >= 12) {
+        if (activecount >= 8) {
             alert("Maximale Spielerzahl erreicht!");
             return;
         }

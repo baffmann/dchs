@@ -18,10 +18,10 @@
                 <div class="col-lg-6">
                     <div class="alert alert-success text-center" role="alert" id="shot-alert" style="z-index: 1;">
                     </div>
-                </div>  
-                <div class="col"></div>  
+                </div>
+                <div class="col"></div>
             </div>
- 
+
         </div>
 
         <div class="row h100">
@@ -230,27 +230,34 @@
                 </div>
 
                 <div class="row justify-content-center align-items-center h75">
-                    <div class="col-12">
-                        <ul class="list-group" id="scorelist">
+                    <div class="col-12 h100">
+                        <ul class="list-group h100" id="scorelist">
                             <!--Big Scorelist for all 12 players-->
                             <!--Initially invisible-->
 
                             <!--Player 1-->
                             <li id="player1"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-1"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="1-score-1">-</span>
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-1" style="font-size:1vw"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="1-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="1-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="1-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="1-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="1-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="1-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="1-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
@@ -258,58 +265,80 @@
                             <!--Player 2-->
                             <li id="player2"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-2"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="2-score-1">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="2-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="2-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="2-points" style="padding-right: 0;">
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-2" style="font-size:1vw"></div>
                                     </div>
-                                </strong>
 
-                                <!--Player 3-->
-                            <li id="player3"
-                                class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-3"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="3-score-1">-</span>
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="2-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="2-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="2-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="3-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="3-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="3-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="2-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
 
+                           <!--Player 3-->
+                           <li id="player3"
+                           class="list-group-item d-flex justify-content-between align-items-center invisible"
+                           style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                           <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                               <div class="row" style="padding-left: 15px;">
+                                   <div class="col" id="list-player-3" style="font-size:1vw"></div>
+                               </div>
+
+                               <div class="row">
+                                   <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="3-score-1">
+                                       <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                   </div>
+                                   <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="3-score-2">
+                                       <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                   </div>
+                                   <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="3-score-3">
+                                       <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                   </div>
+                               </div>
+                           </div>
+                           <strong>
+                               <div class="col-sm-4 text-center" id="3-points" style="font-size: 2.5vw;">
+                               </div>
+                           </strong>
+                       </li>
+
                             <!--Player 4-->
                             <li id="player4"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-4"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="4-score-1">-</span>
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-4" style="font-size:1vw"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="4-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="4-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="4-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="4-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="4-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="4-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="4-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
@@ -317,19 +346,26 @@
                             <!--Player 5-->
                             <li id="player5"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-5"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="5-score-1">-</span>
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-5" style="font-size:1vw"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="5-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="5-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="5-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="5-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="5-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="5-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="5-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
@@ -337,19 +373,26 @@
                             <!--Player 6-->
                             <li id="player6"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-6"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="6-score-1">-</span>
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-6" style="font-size:1vw"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="6-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="6-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="6-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="6-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="6-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="6-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="6-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
@@ -357,19 +400,26 @@
                             <!--Player 7-->
                             <li id="player7"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-7"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="7-score-1">-</span>
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-7" style="font-size:1vw"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="7-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="7-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size:1.5vw;" id="7-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="7-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="7-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="7-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="7-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
@@ -377,99 +427,26 @@
                             <!--Player 8-->
                             <li id="player8"
                                 class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-8"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="8-score-1">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="8-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="8-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="8-points" style="padding-right: 0;">
+                                style="padding-left: 5px; padding-right: 5px; padding-bottom: 0px;">
+                                <div class="col-sm-8" style="padding-left: 0px; font-weight: bold;">
+                                    <div class="row" style="padding-left: 15px;">
+                                        <div class="col" id="list-player-8" style="font-size: 1vw;"></div>
                                     </div>
-                                </strong>
-                            </li>
 
-                            <!--Player 9-->
-                            <li id="player9"
-                                class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-9"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="9-score-1">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="9-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="9-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="9-points" style="padding-right: 0;">
+                                    <div class="row">
+                                        <div class="col text-center" style="padding: 0; font-size: 1.5vw;" id="8-score-1">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size: 1.5vw;" id="8-score-2">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
+                                        <div class="col text-center" style="padding: 0; font-size: 1.5vw;" id="8-score-3">
+                                            <!--<span class="badge badge-primary scorebadge" id="1-score-1">-</span>-->
+                                        </div>
                                     </div>
-                                </strong>
-                            </li>
-
-                            <!--Player 10-->
-                            <li id="player10"
-                                class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-10"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="10-score-1">-</span>
                                 </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="10-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="10-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="10-points" style="padding-right: 0;">
-                                    </div>
-                                </strong>
-                            </li>
-
-                            <!--Player 11-->
-                            <li id="player11"
-                                class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-11"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="11-score-1">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="11-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="11-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="11-points" style="padding-right: 0;">
-                                    </div>
-                                </strong>
-                            </li>
-
-                            <!--Player 12-->
-                            <li id="player12"
-                                class="list-group-item d-flex justify-content-between align-items-center invisible"
-                                style="padding-left: 5px; padding-right: 5px;">
-                                <div class="col-sm-6" id="list-player-12"
-                                    style="padding-left: 0px; font-size: 1.2em; font-weight: bold;"></div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="12-score-1">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="12-score-2">-</span>
-                                </div>
-                                <div class="col-lg-1 text-center" style="padding: 0;">
-                                    <span class="badge badge-primary scorebadge" id="12-score-3">-</span>
-                                </div><strong style="font-size: 1.2em;">
-                                    <div class="col-lg-3 text-center" id="12-points" style="padding-right: 0;">
+                                <strong>
+                                    <div class="col-sm-4 text-center" id="8-points" style="font-size: 2.5vw;">
                                     </div>
                                 </strong>
                             </li>
