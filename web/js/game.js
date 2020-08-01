@@ -317,16 +317,14 @@ function back() {
 	//Switch back to last player
 	console.log(typeof currentplayer.score[round][0]);
 	if (typeof currentplayer.score[round][0] == 'undefined') {
-		console.log("switched in if")
 		var popped = currentplayer.score.pop();
-		console.log(popped);
-		console.log(round);
 		update(currentplayer);
 		index -= 1;
 		if (index < 0) {
 			index = playercount - 1;
 			round -= 1;
 		}
+		$('.pointbtn').attr("disabled", true);
 		next(playerlist[index], true);
 		return;
 	}
