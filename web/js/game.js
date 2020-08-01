@@ -148,7 +148,6 @@ function next(playerid, back) {
 		$('#backbtn').html("Zurück");
 	}
 	
-	$('#nextBtn').attr("disabled", true);
 	var roundtext = "Runde: ";
 	//round +1 because game starts with round 0
 	roundtext += round + 1;
@@ -328,14 +327,8 @@ function back() {
 		next(playerlist[index], true);
 		return;
 	}
-	console.log("Still running in back()");
 
-
-	$('#nextBtn').attr("disabled", true)
 	$('.pointbtn').attr("disabled", false);
-	$('#zerobtn').attr("disabled", false);
-	$('#doublebtn').attr("disabled", false);
-	$('#triplebtn').attr("disabled", false);
 
 	if (typeof currentplayer.score[round][2] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][2];
@@ -455,35 +448,27 @@ function points(btn) {
 	}
 
 	currentplayer.avg = calcAvg();
-	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	update(currentplayer);
+
+	//don't update data with last dart 
+	if (dart != 3){
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
+	}
 
 	updateList();
 
 	resetMultiplier();
 
 	if (scoredthree || currentplayer.points == 0) {
-		$('.pointbtn').attr("disabled", true);
-		$('#zerobtn').attr("disabled", true);
-		$('#doublebtn').attr("disabled", true);
-		$('#triplebtn').attr("disabled", true);
-		$('#nextBtn').attr("disabled", false);
+		console.log("Player finished, Loading next");
+		checkShot();
+		index += 1;
+		if (index > playercount - 1) {
+			index = 0;
+			round += 1;
+		}
+		next(playerlist[index], false);
 	}
-}
-
-function nextBtn() {
-	console.log("Player finished, Loading next");
-	checkShot();
-	$('.pointbtn').attr("disabled", false);
-	$('#zerobtn').attr("disabled", false);
-	$('#doublebtn').attr("disabled", false);
-	$('#triplebtn').attr("disabled", false);
-	index += 1;
-	if (index > playercount - 1) {
-		index = 0;
-		round += 1;
-	}
-	next(playerlist[index], false);
 }
 
 function checkShot() {
