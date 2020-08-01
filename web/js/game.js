@@ -10,6 +10,7 @@ $(document).ready(function () {
 			}
 		});
 		$('#shot-alert').hide();
+		$('#backbtn').attr("disabled", true);
 		gamemode = data[index].points;
 		next(playerlist[0]);
 	});
@@ -65,7 +66,8 @@ function updateList() {
 		if (allPlayers[index].active == true && allPlayers[index].finished == false) {
 			order = allPlayers[index].order;
 			score = allPlayers[index].score;
-			//score is null in the beginning of a game
+
+			//score for player is null in the beginning of a game
 			if (score == null) {
 				for (var i = 1; i < 4; i++) {
 					$("#" + order + "-score-" + i).html("-");
@@ -73,19 +75,27 @@ function updateList() {
 			} else {
 				//when next round starts, show results of last round
 				//console.log("score is NOT null");
-				
+
 				//console.log("updateList: " + score[round]);
 				if (typeof score[round] == 'undefined') {
 					//console.log("if undef " + order);
-					//check if player threw three darts..must atleast have one score
-					for (var i = 0; i < 3; i++) {
-						console.log(typeof score[round - 1][i])
-						$("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
+					if (typeof score[round - 1] == 'undefined') {
+						//player has no score at all
+						for (var i = 0; i < 3; i++) {
+							$("#" + order + "-score-" + (i + 1)).html("-")
+						}
+					} else {
+						//check if player threw three darts..must atleast have one score
+
+						for (var i = 0; i < 3; i++) {
+						//console.log(typeof score[round - 1][i])
+							$("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
+						}
 					}
 				} else {
-					console.log("or else..." + order);
+					//console.log("or else..." + order);
 					for (var i = 0; i < 3; i++) {
-						if (typeof score[round][i] == 'undefined'){
+						if (typeof score[round][i] == 'undefined') {
 							$("#" + order + "-score-" + (i + 1)).html("-")
 						} else {
 							$("#" + order + "-score-" + (i + 1)).html(score[round][i])
@@ -130,8 +140,14 @@ function gameFinished(stillPlaying) {
 	return false
 }
 
-function next(playerid) {
-	$('#backbtn').attr("disabled", true);
+function next(playerid, back) {
+	//check if next was called from back
+	if (back){
+		$('#backbtn').html("<img src='images/trash.png' alt='trash' height='60' width='60'>");
+	} else {
+		$('#backbtn').html("Zurück");
+	}
+	
 	$('#nextBtn').attr("disabled", true);
 	var roundtext = "Runde: ";
 	//round +1 because game starts with round 0
@@ -146,8 +162,13 @@ function next(playerid) {
 			if (data[index].active == true && data[index].finished == false) {
 				stillPlaying += 1;
 			}
+
+			//Set color for (un-)active player
+			$('#player'+allPlayers[index].order).css("background-color", "white");
+
 			if (allPlayers[index].id == playerid) {
 				currentplayer = allPlayers[index];
+				$('#player'+currentplayer.order).css("background-color", "#5CABFF");
 			}
 		});
 		//console.log("Stillplaying: " + stillPlaying);
@@ -160,7 +181,7 @@ function next(playerid) {
 					index = 0;
 					round += 1;
 				}
-				next(playerlist[index]);
+				next(playerlist[index], false);
 			} else {
 				var scores = [];
 				var rounds = [];
@@ -172,12 +193,8 @@ function next(playerid) {
 					//array is already defined when delete button was used
 					currentplayer.score.push(scores);
 				}
-				displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
+				displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 				$("#spielername").html(currentplayer.name);
-
-				for (var i = 1; i < 4; i++) {
-					$("#dart" + i).html("-");
-				}
 			}
 
 		} else {
@@ -254,7 +271,7 @@ function resultsSort(a, b) {
 	return 0
 }
 
-function displayPoints(order, points, avg, bestavg) {
+function displayPoints(order, points, avg) {
 	$('#punktzahl').each(function () {
 		var $this = $(this);
 		jQuery({ Counter: $this.text() }).animate({ Counter: points }, {
@@ -272,7 +289,6 @@ function displayPoints(order, points, avg, bestavg) {
 	});
 	$('#punktzahl').html(points);
 	$("#average").html(avg);
-	$("#bestAverage").html(bestavg);
 	$("#" + order + "-points").html(points);
 
 	updateList();
@@ -298,6 +314,25 @@ function back() {
 		currentplayer.score[round][2] = backupScore[0].score3;
 	}
 
+	//Switch back to last player
+	console.log(typeof currentplayer.score[round][0]);
+	if (typeof currentplayer.score[round][0] == 'undefined') {
+		console.log("switched in if")
+		var popped = currentplayer.score.pop();
+		console.log(popped);
+		console.log(round);
+		update(currentplayer);
+		index -= 1;
+		if (index < 0) {
+			index = playercount - 1;
+			round -= 1;
+		}
+		next(playerlist[index], true);
+		return;
+	}
+	console.log("Still running in back()");
+
+
 	$('#nextBtn').attr("disabled", true)
 	$('.pointbtn').attr("disabled", false);
 	$('#zerobtn').attr("disabled", false);
@@ -309,46 +344,26 @@ function back() {
 		currentplayer.score[round][2] = undefined;
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
-		$("#dart3").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	} else if (typeof currentplayer.score[round][1] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][1];
 		currentplayer.score[round][1] = undefined;
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
-		$("#dart2").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	} else if (typeof currentplayer.score[round][0] != 'undefined') {
-		$('#backbtn').attr("disabled", true);
+		$('#backbtn').html("Zurück");
 		currentplayer.points += currentplayer.score[round][0];
 		currentplayer.score[round][0] = undefined;
 		currentplayer.tries -= 1;
 		currentplayer.avg = calcAvg();
-		$("#dart1").html("-");
-		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
+		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	}
-
-	//I'M SORRY BUT THIS IS BUGGY AS HELL
-	/*
-	
-	else if (typeof currentplayer.score[round][0] == 'undefined') {
-		var popped = currentplayer.score.pop();
-		console.log(popped);
-		console.log(round);
-		update(currentplayer);
-		index -= 1;
-		if (index < 0) {
-			index = playercount - 1;
-			round -= 1;
-		}
-		next(playerlist[index]);
-	}
-	
-	*/
 }
 
 
 function points(btn) {
+	$('#backbtn').html("<img src='images/trash.png' alt='trash' height='60' width='60'>");
 	$('#backbtn').attr("disabled", false);
 	console.log("points");
 	console.log(currentplayer.score)
@@ -384,18 +399,6 @@ function points(btn) {
 
 	//Check if throw was valid
 	if ((currentplayer.points > 1) || ((currentplayer.points == 0) && (double == 2))) {
-
-		switch (dart) {
-			case 1:
-				$("#dart1").html(totalscore);
-				break;
-			case 2:
-				$("#dart2").html(totalscore);
-				break;
-			case 3:
-				$("#dart3").html(totalscore);
-				break;
-		}
 
 		//console.log("currentplayer.points:" + currentplayer.points);
 		if (currentplayer.points == 0) {
@@ -450,27 +453,11 @@ function points(btn) {
 				break;
 		}
 
-		//display throw even if scored too much for better user experience
-		switch (dart) {
-			case 1:
-				console.log("Darts1 - Overthrown: " + totalscore);
-				$("#dart1").html(totalscore);
-				break;
-			case 2:
-				console.log("Darts2 - Overthrown: " + totalscore);
-				$("#dart2").html(totalscore);
-				break;
-			case 3:
-				console.log("Darts3 - Overthrown: " + totalscore);
-				$("#dart3").html(totalscore);
-				break;
-		}
-
 		scoredthree = true;
 	}
 
 	currentplayer.avg = calcAvg();
-	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg, currentplayer.stats.bestavg);
+	displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	update(currentplayer);
 
 	updateList();
@@ -498,7 +485,7 @@ function nextBtn() {
 		index = 0;
 		round += 1;
 	}
-	next(playerlist[index]);
+	next(playerlist[index], false);
 }
 
 function checkShot() {
