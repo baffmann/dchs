@@ -324,11 +324,15 @@ function back() {
 			round -= 1;
 		}
 		$('.pointbtn').attr("disabled", true);
+		$('#doublebtn').attr("disabled", true);
+		$('#triplebtn').attr("disabled", true);
 		next(playerlist[index], true);
 		return;
 	}
 
 	$('.pointbtn').attr("disabled", false);
+	$('#doublebtn').attr("disabled", false);
+	$('#triplebtn').attr("disabled", false);
 
 	if (typeof currentplayer.score[round][2] != 'undefined') {
 		currentplayer.points += currentplayer.score[round][2];
