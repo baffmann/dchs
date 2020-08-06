@@ -215,6 +215,8 @@ function calcResult() {
 		activePlayers = activePlayers.sort(resultsSort);
 		ranking = 1;
 		$.each(activePlayers, function (index) {
+			$('#resultslist thead').append('<tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Pfeile</th><th scope="col">Average</th></tr>');
+
 			//append to resultslist table
 			$('#resultslist tbody').append('<tr><th scope="row">'
 				+ ranking

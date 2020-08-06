@@ -83,7 +83,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 
 func resetGame(w http.ResponseWriter, r *http.Request) {
 	initGame()
-	json.NewEncoder(w).Encode(version)
+	json.NewEncoder(w).Encode(settings)
 }
 
 func quitGame(w http.ResponseWriter, r *http.Request) {
@@ -110,6 +110,19 @@ func update(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error", err)
 	}
 	json.NewEncoder(w).Encode(tmpPlayer)
+}
+
+func newSettings(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&settings)
+	if err != nil {
+		panic(err)
+	}
+	if err := updateSettings(settings); err != nil {
+		fmt.Println("Error", err)
+	}
+	json.NewEncoder(w).Encode(settings)
 }
 
 func stats(w http.ResponseWriter, r *http.Request) {

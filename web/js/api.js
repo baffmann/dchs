@@ -30,6 +30,19 @@ function update(player) {
     })
 };
 
+function updateSettings(gamesettings) {
+    return $.ajax({
+        type: "POST",
+        url: "/api/updateSettings",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(gamesettings),
+        //TODO: Check if still necessary
+        //disable ASYNC ajax because go needs a tiny amount of time to update the db, so last score is missed before player change
+		//async: false //DEPRECATED!
+    })
+};
+
 function stats(player) {
     $.ajax({
         type: "POST",
@@ -54,6 +67,8 @@ function reset() {
     return $.ajax({
         type: "POST",
         url: "/api/reset",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
     })
 };
 

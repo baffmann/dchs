@@ -29,6 +29,16 @@ type Stats struct {
 	BestScore   int     `json:"bestscore"`
 }
 
+type Score struct {
+	One int
+}
+
+type GameSettings struct {
+	Version    string `json:"version"`
+	Title      string `json:"title"`
+	Connection bool   `json:"connection"`
+}
+
 /*type GameData struct {
 	Round  int  `json:"round"`
 	Double bool `json:"double"`
@@ -36,13 +46,30 @@ type Stats struct {
 }
 var gameData GameData*/
 
-var workingDir, dbDir, version string
+var workingDir, dbDir string
 
 var players []Player
 var archive []Player
+var version string
+var settings GameSettings
 
 func initGame() {
 	readPlayers()
+
+	if _, err := os.Stat(workingDir + "/settings/settings.json"); err == nil {
+		readSettings()
+	} else {
+		//initial settings
+		settings.Title = "Darts Scoreboard"
+		updateSettings(settings)
+	}
+
+	if !connected() {
+		settings.Connection = false
+	} else {
+		settings.Connection = true
+	}
+
 	for _, item := range players {
 		item.Points = 501
 		item.Active = false
@@ -60,11 +87,11 @@ func getEnv() {
 	if os.Getenv("SNAP") != "" {
 		workingDir = string(os.Getenv("SNAP"))
 		dbDir = string(os.Getenv("SNAP_DATA"))
-		version = string(os.Getenv("SNAP_REVISION"))
+		settings.Version = string(os.Getenv("SNAP_REVISION"))
 	} else {
 		workingDir = "."
 		dbDir = "./"
-		version = "debug"
+		settings.Version = "debug"
 	}
 
 	if os.Getenv("SNAP_DATA") != "" {
@@ -72,6 +99,14 @@ func getEnv() {
 	} else {
 
 	}
+}
+
+func connected() (ok bool) {
+	_, err := http.Get("http://clients3.google.com/generate_204")
+	if err != nil {
+		return false
+	}
+	return true
 }
 
 func main() {
@@ -100,6 +135,7 @@ func main() {
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
 	r.HandleFunc("/api/stats", stats).Methods("POST")
+	r.HandleFunc("/api/updateSettings", newSettings).Methods("POST")
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 

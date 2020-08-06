@@ -21,6 +21,17 @@ func readPlayers() {
 	}
 }
 
+func readSettings() {
+	db.Read("settings", "settings", &settings)
+}
+
+func updateSettings(setting GameSettings) (err error) {
+	if err := db.Write("settings", "settings", setting); err != nil {
+		return err
+	}
+	return nil
+}
+
 func readArchive() {
 	archive = nil
 	records, _ := db.ReadAll("archive")
@@ -37,7 +48,6 @@ func updatePlayer(name string, player Player) (err error) {
 	if err := db.Write("players", name, player); err != nil {
 		return err
 	}
-
 	return nil
 }
 

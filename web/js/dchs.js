@@ -1,6 +1,26 @@
 $(document).ready(function () {
     $.when(reset()).done(function (data) {
-        $('#version').html("Version: " + data);
+        gamesettings = data;
+        $('#mainMenuTitle').html(data.title);
     });
 });
 
+var gamesettings
+
+$("#neuerTitel").click(function (e) {
+    e.preventDefault();
+    gamesettings.title = $("#title").val();
+    $.when(updateSettings(gamesettings)).done(function (data) {
+        $('#mainMenuTitle').html(data.title);
+        $('#setMainMenuTitle').html(data.title);
+    });
+});
+
+$("#settings").click(function (e) {
+    e.preventDefault();
+    if (gamesettings.connection) {
+        $('#connection').html("Online");
+    }
+    $('#setMainMenuTitle').html(gamesettings.title);
+    $('#version').html("Version: " + gamesettings.version);
+});
