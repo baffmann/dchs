@@ -88,7 +88,7 @@ function updateList() {
 						//check if player threw three darts..must atleast have one score
 
 						for (var i = 0; i < 3; i++) {
-						//console.log(typeof score[round - 1][i])
+							//console.log(typeof score[round - 1][i])
 							$("#" + order + "-score-" + (i + 1)).html(typeof score[round - 1][i] !== 'undefined' ? score[round - 1][i] : "-")
 						}
 					}
@@ -110,15 +110,17 @@ function updateList() {
 }
 
 function endGame() {
-	//Modal for finished Game
-	calcResult();
-	$("#finishedGame").modal()
 	$.each(allPlayers, function (index) {
 		if (allPlayers[index].active == true) {
 			stats(allPlayers[index]);
 		}
 	})
+	//Modal for finished Game
+	//calcResult();
+	//$("#finishedGame").modal()
+
 	console.log("Now we are done!!");
+	window.location = "http://localhost:64760/result.html";
 }
 
 function gameFinished(stillPlaying) {
@@ -142,12 +144,12 @@ function gameFinished(stillPlaying) {
 
 function next(playerid, back) {
 	//check if next was called from back
-	if (back){
+	if (back) {
 		$('#backbtn').html("<img src='images/trash.png' alt='trash' height='60' width='60'>");
 	} else {
 		$('#backbtn').html("Zurück");
 	}
-	
+
 	var roundtext = "Runde: ";
 	//round +1 because game starts with round 0
 	roundtext += round + 1;
@@ -163,11 +165,11 @@ function next(playerid, back) {
 			}
 
 			//Set color for (un-)active player
-			$('#player'+allPlayers[index].order).css("background-color", "white");
+			$('#player' + allPlayers[index].order).css("background-color", "white");
 
 			if (allPlayers[index].id == playerid) {
 				currentplayer = allPlayers[index];
-				$('#player'+currentplayer.order).css("background-color", "#5CABFF");
+				$('#player' + currentplayer.order).css("background-color", "#5CABFF");
 			}
 		});
 		//console.log("Stillplaying: " + stillPlaying);
@@ -200,76 +202,6 @@ function next(playerid, back) {
 			endGame();
 		}
 	});
-}
-
-function calcResult() {
-	$.when(getPlayers()).done(function (data) {
-		allPlayers = data;
-		var activePlayers = [];
-		$.each(data, function (index) {
-			//sort active players
-			if (data[index].active == true) {
-				activePlayers.push(data[index]);
-			}
-		});
-		activePlayers = activePlayers.sort(resultsSort);
-		ranking = 1;
-		$('#resultslist thead').append('<tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Pfeile</th><th scope="col">Average</th></tr>');
-
-		$.each(activePlayers, function (index) {
-			//append to resultslist table
-			$('#resultslist tbody').append('<tr><th scope="row">'
-				+ ranking
-				+ '</th><td>'
-				+ activePlayers[index].name
-				+ '</td><td>'
-				+ activePlayers[index].tries
-				+ '</td><td>'
-				+ activePlayers[index].avg
-				+ '</td></tr>');
-
-			ranking += 1;
-		});
-	})
-}
-
-/*
-Sorting is in the following order
-1. Sort players in respect to ranking (not ranked is 99)
-2. Sort players regarding their points left
-3. Sort players by number of tries (equal to which player has better average)
-4. Sort players by order
-*/
-function resultsSort(a, b) {
-	if (a.ranking < b.ranking) {
-		return -1
-	}
-	if (a.ranking > b.ranking) {
-		return 1
-	}
-	//if ranking is the same (--> multiple players not finished)
-	if (a.points < b.points) {
-		return -1
-	}
-	if (a.points > b.points) {
-		return 1
-	}
-	//Players have the same amount of points
-	if (a.tries < b.tries) {
-		return -1
-	}
-	if (a.tries > b.tries) {
-		return 1
-	}
-	//Player have same amount of points and tries
-	if (a.order < b.order) {
-		return -1
-	}
-	if (a.order > b.order) {
-		return 1
-	}
-	//Basically this can't be reached 
-	return 0
 }
 
 function displayPoints(order, points, avg) {
@@ -454,10 +386,19 @@ function points(btn) {
 	}
 
 	currentplayer.avg = calcAvg();
+
+	//calculating bestround
+	if (currentplayer.score[round][0] != 'undefined' && currentplayer.score[round][1] != 'undefined' && currentplayer.score[round][2] != 'undefined') {
+		roundscore = currentplayer.score[round][0] + currentplayer.score[round][1] + currentplayer.score[round][2]
+	}
+	if (roundscore > currentplayer.stats.bestscore) {
+		currentplayer.stats.bestscore = roundscore;
+	}
+
 	update(currentplayer);
 
 	//don't update data with last dart 
-	if (dart != 3){
+	if (dart != 3) {
 		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	}
 
@@ -466,6 +407,7 @@ function points(btn) {
 	resetMultiplier();
 
 	if (scoredthree || currentplayer.points == 0) {
+
 		console.log("Player finished, Loading next");
 		checkShot();
 		index += 1;
