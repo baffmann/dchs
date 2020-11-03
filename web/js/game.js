@@ -170,6 +170,15 @@ function next(playerid, back) {
 			if (allPlayers[index].id == playerid) {
 				currentplayer = allPlayers[index];
 				$('#player' + currentplayer.order).css("background-color", "#5CABFF");
+				if (back && backupScore[0] != undefined) {
+					console.log("Restoring points from backup");
+					currentplayer.points = backupScore[0].points;
+					currentplayer.tries = backupScore[0].tries;
+					currentplayer.score[round][0] = backupScore[0].score1;
+					currentplayer.score[round][1] = backupScore[0].score2;
+					currentplayer.score[round][2] = backupScore[0].score3;
+					backupScore[0] = undefined;
+				}
 			}
 		});
 		//console.log("Stillplaying: " + stillPlaying);
@@ -238,16 +247,7 @@ function back() {
 		return;
 	}
 
-	if (backupScore[0] != undefined) {
-		console.log("Restoring points from backup");
-		currentplayer.points = backupScore[0].points;
-		currentplayer.tries = backupScore[0].tries;
-		currentplayer.score[round][0] = backupScore[0].score1;
-		currentplayer.score[round][1] = backupScore[0].score2;
-		currentplayer.score[round][2] = backupScore[0].score3;
-	}
-
-	//Switch back to last player
+	//Switch back to last player if current player has no valid throw
 	console.log(typeof currentplayer.score[round][0]);
 	if (typeof currentplayer.score[round][0] == 'undefined') {
 		var popped = currentplayer.score.pop();
@@ -264,6 +264,7 @@ function back() {
 		return;
 	}
 
+	// else just remove last throw
 	$('.pointbtn').attr("disabled", false);
 	$('#doublebtn').attr("disabled", false);
 	$('#triplebtn').attr("disabled", false);
