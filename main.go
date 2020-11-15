@@ -61,7 +61,6 @@ func initGame() {
 	} else {
 		//initial settings
 		settings.Title = "Darts Scoreboard"
-		updateSettings(settings)
 	}
 
 	if !connected() {
@@ -69,6 +68,7 @@ func initGame() {
 	} else {
 		settings.Connection = true
 	}
+	updateSettings(settings)
 
 	for _, item := range players {
 		item.Points = 501
@@ -94,11 +94,11 @@ func getEnv() {
 		settings.Version = "debug"
 	}
 
-	if os.Getenv("SNAP_DATA") != "" {
-		dbDir = string(os.Getenv("SNAP_DATA"))
-	} else {
+	// if os.Getenv("SNAP_DATA") != "" {
+	// 	dbDir = string(os.Getenv("SNAP_DATA"))
+	// } else {
 
-	}
+	// }
 }
 
 func connected() (ok bool) {
