@@ -44,7 +44,8 @@ function calcResult() {
                 $('#winner').html(activePlayers[index].name);
             }
 
-            if (activePlayers[index].avg > bestavg) {
+            //check for best average from all finished players (points == 0)
+            if (activePlayers[index].avg > bestavg && activePlayers[index].points == 0) {
                 bestavg = activePlayers[index].avg;
                 bestavgPlayer = activePlayers[index].name;
             }
@@ -74,7 +75,13 @@ function calcResult() {
             var playerinfo = '<tr><td>';
             playerinfo += activePlayers[index].name;
             playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].avg;
+            if (activePlayers[index].points != 0){
+                playerinfo += '(';
+                playerinfo += activePlayers[index].avg;
+                playerinfo += ')';
+            } else {
+                playerinfo += activePlayers[index].avg;
+            }
             playerinfo += '</td><td>';
             playerinfo += bestrndPlayer;
             playerinfo += '</td><td>';
@@ -84,7 +91,7 @@ function calcResult() {
             playerinfo += '</td><td>';
             playerinfo += activePlayers[index].stats.bestscore;// --> Beste Runde
             playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].stats.bestavg;// --> Beste Runde
+            playerinfo += activePlayers[index].stats.bestavg;
             playerinfo += '</td></tr>';
             $('#infolist tbody').append(playerinfo);
 
