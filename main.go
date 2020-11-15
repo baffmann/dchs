@@ -56,7 +56,7 @@ var settings GameSettings
 func initGame() {
 	readPlayers()
 
-	if _, err := os.Stat(workingDir + "/settings/settings.json"); err == nil {
+	if _, err := os.Stat(dbDir + "/settings/settings.json"); err == nil {
 		readSettings()
 	} else {
 		//initial settings
