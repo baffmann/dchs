@@ -392,7 +392,9 @@ body {
 
 .resulttitle {
     text-shadow: 2px 2px #ffffff;
-    color: #007bff; font-family: PermanentMarker;
+    color: #007bff; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
 }
 
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
