@@ -37,13 +37,6 @@ type GameSettings struct {
 	Connection bool   `json:"connection"`
 }
 
-/*type GameData struct {
-	Round  int  `json:"round"`
-	Double bool `json:"double"`
-	Triple bool `json:"triple"`
-}
-var gameData GameData*/
-
 var workingDir, dbDir string
 
 var players []Player
@@ -53,20 +46,6 @@ var settings GameSettings
 
 func initGame() {
 	readPlayers()
-
-	if _, err := os.Stat(dbDir + "/settings/settings.json"); err == nil {
-		readSettings()
-	} else {
-		//initial settings
-		settings.Title = "Darts Scoreboard"
-	}
-
-	if !connected() {
-		settings.Connection = false
-	} else {
-		settings.Connection = true
-	}
-	updateSettings(settings)
 
 	for _, item := range players {
 		item.Points = 501
@@ -82,16 +61,34 @@ func initGame() {
 }
 
 func getEnv() {
+
 	if os.Getenv("SNAP") != "" {
 		workingDir = string(os.Getenv("SNAP"))
 		dbDir = string(os.Getenv("SNAP_DATA"))
-		settings.Version = string(os.Getenv("SNAP_REVISION"))
 	} else {
 		workingDir = "."
 		dbDir = "./"
+	}
+
+	if _, err := os.Stat(dbDir + "/settings/settings.json"); err == nil {
+		readSettings()
+	} else {
+		//initial settings
+		settings.Title = "Darts Scoreboard"
+	}
+
+	if os.Getenv("SNAP_REVISION") != "" {
+		settings.Version = string(os.Getenv("SNAP_REVISION"))
+	} else {
 		settings.Version = "debug"
 	}
 
+	if !connected() {
+		settings.Connection = false
+	} else {
+		settings.Connection = true
+	}
+	updateSettings(settings)
 }
 
 func connected() (ok bool) {
