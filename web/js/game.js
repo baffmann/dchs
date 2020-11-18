@@ -115,7 +115,7 @@ function endGame() {
 }
 
 function gameFinished(stillPlaying) {
-	if (round == 21 && !keepPlaying) {
+	if (round == 20 && !keepPlaying) {
 		//If it reaches this the second time, player has chosen to play until the end
 		//If not, game is finished anyways
 		//Therefore setting keepPlaying directly to true makes sense
