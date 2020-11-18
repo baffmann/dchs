@@ -33,7 +33,9 @@ function calcResult() {
         + '<th>Beste Runde</th>'
         + '<th>Geworfene Pfeile</th>'
         + '<th>Anzahl Spiele Gesamt</th>'
-        + '<th>Beste Runde Gesamt</th>'
+        + '<th>100+ Gesamt</th>'
+        + '<th>140+ Gesamt</th>'
+        + '<th>180+ Gesamt</th>'
         + '<th>Bester Average</th>'
         + '</tr>');
 
@@ -51,15 +53,12 @@ function calcResult() {
             }
 
             for (var i = 0; i < roundsplayed; i++) {
+                var roundresult = 0;
                 if (activePlayers[index].score[i] != undefined) {
-                    if (activePlayers[index].score[i][0] != undefined) {
-                        roundresult = activePlayers[index].score[i][0];
-                    }
-                    if (activePlayers[index].score[i][1] != undefined) {
-                        roundresult += activePlayers[index].score[i][1];
-                    }
-                    if (activePlayers[index].score[i][2] != undefined) {
-                        roundresult += activePlayers[index].score[i][2];
+                    for (var j = 0; j < 3; j++){
+                        if (activePlayers[index].score[i][j] != undefined) {
+                            roundresult += activePlayers[index].score[i][j];
+                        } 
                     }
                 }
 
@@ -70,30 +69,29 @@ function calcResult() {
                 if (roundresult > bestrndPlayer) {
                     bestrndPlayer = roundresult;
                 }
+
+                //check for 180,140,100
+                if (roundresult >= 100 && roundresult < 140){
+                    activePlayers[index].stats.onehundred += 1;
+                    console.log(activePlayers[index].stats.onehundred);
+                } else if (roundresult >= 140 && roundresult < 180){
+                    activePlayers[index].stats.onehundredeighty += 1;
+                    console.log(activePlayers[index].stats.onehundredeighty);
+                } else if (roundresult == 180) {
+                    activePlayers[index].stats.onehundredforty += 1;
+                    console.log(activePlayers[index].stats.onehundredforty);
+                }
             }
 
-            var playerinfo = '<tr><td>';
-            playerinfo += activePlayers[index].name;
-            playerinfo += '</td><td>';
-            if (activePlayers[index].points != 0){
-                playerinfo += '(';
-                playerinfo += activePlayers[index].avg;
-                playerinfo += ')';
-            } else {
-                playerinfo += activePlayers[index].avg;
+            if (activePlayers[index].avg > activePlayers[index].stats.bestavg) {
+                activePlayers[index].stats.bestavg = activePlayers[index].avg;
             }
-            playerinfo += '</td><td>';
-            playerinfo += bestrndPlayer;
-            playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].tries;
-            playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].stats.gamesplayed;
-            playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].stats.bestscore;// --> Beste Runde
-            playerinfo += '</td><td>';
-            playerinfo += activePlayers[index].stats.bestavg;
-            playerinfo += '</td></tr>';
-            $('#infolist tbody').append(playerinfo);
+
+            activePlayers[index].stats.gamesplayed += 1;
+
+            update(activePlayers[index]);
+
+            createResultTable(activePlayers[index], bestrndPlayer)
 
             //reset bestroundplayer
             bestrndPlayer = 0;
@@ -104,47 +102,38 @@ function calcResult() {
         $('#bestrndName').html(bestrndName);
         $('#bestavg').html(bestavg);
         $('#bestavgName').html(bestavgPlayer);
-
-
-
-        // table with complete results
-        /*
-        var resultsListHead = '<tr><th scope="col" style="width: 4.76%">Name</th>';
-
-        for (var i = 1; i <= roundsplayed; i++) {
-            console.log("adding head")
-            resultsListHead += '<th>';
-            resultsListHead += i;
-            resultsListHead += '</th>';
-        }
-        resultsListHead += '</tr>';
-
-        $('#resultslist thead').append(resultsListHead);
-        
-        $.each(activePlayers, function (index) {
-            //append to resultslist table
-            var playerresult = '<tr><td>';
-            playerresult += activePlayers[index].name;
-            playerresult += '</td><td>';
-            for (var i = 0; i < roundsplayed; i++) {
-                if (activePlayers[index].score[i] == undefined){
-                    playerresult += '</td>';
-                } else {
-                    playerresult += activePlayers[index].score[i];
-                    playerresult += '</td>';
-                }
-                if (i != roundsplayed-1){
-                    playerresult += '<td>';
-                }
-            }
-
-            playerresult += '</tr>'
-
-            $('#resultslist tbody').append(playerresult);
-            });
-            */
-
     })
+}
+
+
+function createResultTable(activePlayer, bestroundplayer){
+    console.log(activePlayer)
+    var playerinfo = '<tr><td>';
+    playerinfo += activePlayer.name;
+    playerinfo += '</td><td>';
+    if (activePlayer.points != 0){
+        playerinfo += '(';
+        playerinfo += activePlayer.avg;
+        playerinfo += ')';
+    } else {
+        playerinfo += activePlayer.avg;
+    }
+    playerinfo += '</td><td>';
+    playerinfo += bestroundplayer;
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.tries;
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.stats.gamesplayed;
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.stats.onehundred;// --> Beste Runde
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.stats.onehundredforty;// --> Beste Runde
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.stats.onehundredeighty;// --> Beste Runde
+    playerinfo += '</td><td>';
+    playerinfo += activePlayer.stats.bestavg;
+    playerinfo += '</td></tr>';
+    $('#infolist tbody').append(playerinfo);
 }
 
 /*

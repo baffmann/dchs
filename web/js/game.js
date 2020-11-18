@@ -110,15 +110,6 @@ function updateList() {
 }
 
 function endGame() {
-	$.each(allPlayers, function (index) {
-		if (allPlayers[index].active == true) {
-			stats(allPlayers[index]);
-		}
-	})
-	//Modal for finished Game
-	//calcResult();
-	//$("#finishedGame").modal()
-
 	console.log("Now we are done!!");
 	window.location = "http://localhost:64760/result.html";
 }
@@ -388,13 +379,13 @@ function points(btn) {
 
 	currentplayer.avg = calcAvg();
 
-	//calculating bestround
-	if (currentplayer.score[round][0] != 'undefined' && currentplayer.score[round][1] != 'undefined' && currentplayer.score[round][2] != 'undefined') {
-		roundscore = currentplayer.score[round][0] + currentplayer.score[round][1] + currentplayer.score[round][2]
-	}
-	if (roundscore > currentplayer.stats.bestscore) {
-		currentplayer.stats.bestscore = roundscore;
-	}
+	// //calculating bestround
+	// if (currentplayer.score[round][0] != 'undefined' && currentplayer.score[round][1] != 'undefined' && currentplayer.score[round][2] != 'undefined') {
+	// 	roundscore = currentplayer.score[round][0] + currentplayer.score[round][1] + currentplayer.score[round][2]
+	// }
+	// if (roundscore > currentplayer.stats.bestscore) {
+	// 	currentplayer.stats.bestscore = roundscore;
+	// }
 
 	update(currentplayer);
 

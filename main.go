@@ -24,13 +24,11 @@ type Player struct {
 }
 
 type Stats struct {
-	BestAVG     float64 `json:"bestavg"`
-	GamesPlayed int     `json:"gamesplayed"`
-	BestScore   int     `json:"bestscore"`
-}
-
-type Score struct {
-	One int
+	BestAVG          float64 `json:"bestavg"`
+	GamesPlayed      int     `json:"gamesplayed"`
+	OneHundred       int     `json:"onehundred"`
+	OneHundredForty  int     `json:"onehundredforty"`
+	OneHundredEighty int     `json:"onehundredeighty"`
 }
 
 type GameSettings struct {
@@ -94,11 +92,6 @@ func getEnv() {
 		settings.Version = "debug"
 	}
 
-	// if os.Getenv("SNAP_DATA") != "" {
-	// 	dbDir = string(os.Getenv("SNAP_DATA"))
-	// } else {
-
-	// }
 }
 
 func connected() (ok bool) {
@@ -134,7 +127,6 @@ func main() {
 	r.HandleFunc("/api/player", create).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
-	r.HandleFunc("/api/stats", stats).Methods("POST")
 	r.HandleFunc("/api/updateSettings", newSettings).Methods("POST")
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
