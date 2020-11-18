@@ -73,13 +73,10 @@ function calcResult() {
                 //check for 180,140,100
                 if (roundresult >= 100 && roundresult < 140){
                     activePlayers[index].stats.onehundred += 1;
-                    console.log(activePlayers[index].stats.onehundred);
                 } else if (roundresult >= 140 && roundresult < 180){
-                    activePlayers[index].stats.onehundredeighty += 1;
-                    console.log(activePlayers[index].stats.onehundredeighty);
-                } else if (roundresult == 180) {
                     activePlayers[index].stats.onehundredforty += 1;
-                    console.log(activePlayers[index].stats.onehundredforty);
+                } else if (roundresult == 180) {
+                    activePlayers[index].stats.onehundredeighty += 1;
                 }
             }
 
