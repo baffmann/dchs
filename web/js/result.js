@@ -83,7 +83,7 @@ function calcResult() {
                 }
             }
 
-            if (activePlayers[index].avg > activePlayers[index].stats.bestavg) {
+            if (activePlayers[index].avg > activePlayers[index].stats.bestavg && activePlayers[index].points == 0) {
                 activePlayers[index].stats.bestavg = activePlayers[index].avg;
             }
 
