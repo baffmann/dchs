@@ -115,13 +115,13 @@ function endGame() {
 }
 
 function gameFinished(stillPlaying) {
-	if (round == 20 && !keepPlaying) {
+	if (round == 21 && !keepPlaying) {
 		//If it reaches this the second time, player has chosen to play until the end
 		//If not, game is finished anyways
 		//Therefore setting keepPlaying directly to true makes sense
 		keepPlaying = true;
 		//Ask player if game should be finished
-		$("#manualFinish").modal()
+		$("#roundtwentyModal").modal()
 	}
 
 	if (stillPlaying == 0) {
