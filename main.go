@@ -69,7 +69,9 @@ func getEnv() {
 		workingDir = "."
 		dbDir = "./"
 	}
+}
 
+func setSettings() {
 	if _, err := os.Stat(dbDir + "/settings/settings.json"); err == nil {
 		readSettings()
 	} else {
@@ -113,6 +115,7 @@ func main() {
 		fmt.Println("Error creating database: ", err)
 	}
 	fmt.Println("Database initiated at " + dbDir)
+	setSettings()
 
 	initGame()
 
