@@ -242,17 +242,18 @@ function back() {
 	console.log(typeof currentplayer.score[round][0]);
 	if (typeof currentplayer.score[round][0] == 'undefined') {
 		var popped = currentplayer.score.pop();
-		update(currentplayer);
-		index -= 1;
-		if (index < 0) {
-			index = playercount - 1;
-			round -= 1;
-		}
-		$('.pointbtn').attr("disabled", true);
-		$('#doublebtn').attr("disabled", true);
-		$('#triplebtn').attr("disabled", true);
-		next(playerlist[index], true);
-		return;
+		$.when(update(currentplayer)).done(function () {
+			index -= 1;
+			if (index < 0) {
+				index = playercount - 1;
+				round -= 1;
+			}
+			$('.pointbtn').attr("disabled", true);
+			$('#doublebtn').attr("disabled", true);
+			$('#triplebtn').attr("disabled", true);
+			next(playerlist[index], true);
+			return;
+		});
 	}
 
 	// else just remove last throw
@@ -387,14 +388,15 @@ function points(btn) {
 	// 	currentplayer.stats.bestscore = roundscore;
 	// }
 
-	update(currentplayer);
+	$.when(update(currentplayer)).done(function () {
+		updateList();
+	});
+
 
 	//don't update data with last dart 
 	if (dart != 3) {
 		displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
 	}
-
-	updateList();
 
 	resetMultiplier();
 
