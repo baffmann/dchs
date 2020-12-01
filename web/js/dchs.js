@@ -18,6 +18,9 @@ $("#neuerTitel").click(function (e) {
 
 $("#settings").click(function (e) {
     e.preventDefault();
+    $.when(reset()).done(function (data) {
+        gamesettings = data;
+    });
     if (gamesettings.connection) {
         $('#connection').html("Online");
     }
