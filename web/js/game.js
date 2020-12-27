@@ -171,8 +171,10 @@ function next(playerid, back) {
 					backupScore[0] = undefined;
 				}
 			}
+
 		});
 		//console.log("Stillplaying: " + stillPlaying);
+		//console.log(!gameFinished(stillPlaying));
 		if (!gameFinished(stillPlaying)) {
 			updateList();
 			if (currentplayer.finished == true) {
@@ -252,8 +254,8 @@ function back() {
 			$('#doublebtn').attr("disabled", true);
 			$('#triplebtn').attr("disabled", true);
 			next(playerlist[index], true);
-			return;
 		});
+		return;
 	}
 
 	// else just remove last throw
