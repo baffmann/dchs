@@ -239,6 +239,11 @@ function last(playerid) {
                         currentplayer.finished = false;
                         currentplayer.tries -= 1;
                     } else {
+                        if (currentplayer.points == 444 || currentplayer.points == 333 || currentplayer.points == 222 || currentplayer.points == 111) {
+                            shot -= 1;
+                            $("#shot" + shot).attr("src", "images/shot.png");
+                            $("#shot" + shot).attr("title", "");
+                        }
                         removeLastThrow();
                     }
                 } else if (currentplayer.score[round] == undefined) { // skip finished player
