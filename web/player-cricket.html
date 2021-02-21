@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DC Hot Shots</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dchs.css">
+</head>
+
+<body>
+    <div class="page-header full-screen container-fluid d-flex flex-column">
+        <div class="overlay"></div>
+        <!-- Edit Players (New/Delete) -->
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6 text-center d-flex align-items-center" style="padding: 0px;">
+                <div class="container" style="padding-top: 30px; height: 100%;">
+                    <div class="row justify-content-center">
+                        <!-- Button trigger modal -->
+                        <button type="button" id="newPlayer" class="btn btn-primary btn-lg bigBtn" data-toggle="modal"
+                            data-target="#spielerModal" onclick="newPlayerBtn()">+ Neuer
+                            Spieler</button>
+                        <button type="button" id="deletePlayer" class="btn btn-danger btn-lg bigBtn"
+                            style="margin-left: 30px;" onclick="setDelete()">Spieler löschen</button>
+                    </div>
+                    <div class="row" style="bottom:0; padding-left: 0px; padding-top: 20px;">
+                        <h2 id="title" style="color: #007bff;"></h2><br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gamemode (301/501) -->
+            <div id="gamemodebtn" class="col-sm-6 text-center d-flex align-items-center" style="padding: 30px;">
+                <span class="display-4 text-nowrap" style="color: #007bff;">Spielmodus</span>
+                <div class="btn-group btn-group-toggle btn-group-lg gamemode" data-toggle="buttons"
+                    style="padding-left: 20px;">
+                    <label class="btn btn-primary align-middle" style="padding-top: 25px; font-weight: bold;">
+                        <input type="radio" name="options" value="301">301
+                    </label>
+                    <label class="btn btn-primary active" style="padding-top: 25px; font-weight: bold;">
+                        <input type="radio" name="options" value="501" checked>501
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playerlist - Filled dynamically from backend -->
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <div class="row" id="playerlist"></div>
+            </div>
+        </div>
+
+
+        <!-- Bottom Menu -->
+        <div class="row">
+            <div class="col text-center">
+                <form style="display: block" action="index.html" method="get">
+                    <button class="btn btn-primary btn-lg bigBtn">Hauptmenü</button>
+                </form>
+            </div>
+            <div class="col text-center">
+                <form style="display: block">
+                    <button id="zuruecksetzen" class="btn btn-primary btn-lg bigBtn"
+                        onClick="resetGame()">Zurücksetzen</button>
+                </form>
+            </div>
+            <div class="col text-center">
+                <form style="display: block" action="x01.html" method="get">
+                    <button id="startGame" class="btn btn-primary btn-lg bigBtn">Spiel
+                        Starten</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- New Player Modal -->
+    <div class="modal fade" id="spielerModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Neuen Spieler anlegen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form autocomplete="off">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="spieler-name" placeholder="Spielername"
+                            maxlength="12" minlength="1" autocomplete="off">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="neuerSpieler" type="submit" class="btn btn-default" data-dismiss="modal"
+                            value="Speichern" style="background-color: #007bff; color: white;">Speichern</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/player.js"></script>
+</body>
+
+</html>
