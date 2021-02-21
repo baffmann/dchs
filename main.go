@@ -48,7 +48,9 @@ func initGame() {
 	readPlayers()
 
 	for _, item := range players {
-		item.Points = 501
+		if item.Points != 301 {
+			item.Points = 501
+		}
 		item.Active = false
 		item.Finished = false
 		item.Order = 0
