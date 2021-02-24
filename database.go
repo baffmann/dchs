@@ -22,10 +22,6 @@ func readPlayers() {
 		}
 		players = append(players, playerFound)
 	}
-	if tmpLength != len(players) {
-		fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VALUE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(players), cap(players))
-	}
-	tmpLength = len(players)
 }
 
 func readSettings() {

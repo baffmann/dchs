@@ -43,12 +43,10 @@ var players []Player
 var archive []Player
 var version string
 var settings GameSettings
-var tmpLength int
 
 func initGame() {
 	readPlayers()
 	readArchive()
-	tmpLength = 0
 	for _, item := range players {
 		if item.Points != 301 {
 			item.Points = 501
