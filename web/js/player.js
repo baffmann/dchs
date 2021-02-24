@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     initialSettings();
     reload();
 });
@@ -16,7 +16,7 @@ var deletemode = 0;
 var allPlayers;
 var order = 1;
 
-function initialSettings(){
+function initialSettings() {
     order = 1;
     activecount = 0;
     $("#startGame").attr("disabled", true);
@@ -42,9 +42,9 @@ function createPlayerButton(id, name) {
 function reload() {
     playercount = 0;
     $('#playerlist').empty();
-    $.when(getPlayers()).done(function (data) {
+    $.when(getPlayers()).done(function(data) {
         allPlayers = data;
-        $.each(allPlayers, function (index) {
+        $.each(allPlayers, function(index) {
             createPlayerButton(allPlayers[index].id, allPlayers[index].name);
             playercount += 1;
         });
@@ -60,10 +60,10 @@ function checkPlayerCount() {
     }
 }
 
-$("#gamemodebtn :input").change(function () {
+$("#gamemodebtn :input").change(function() {
     gamemode = $("input[name='options']:checked").val();
     gamemode = parseInt(gamemode);
-    $.each(allPlayers, function (index) {
+    $.each(allPlayers, function(index) {
         allPlayers[index].points = gamemode;
         update(allPlayers[index]);
     })
@@ -71,7 +71,7 @@ $("#gamemodebtn :input").change(function () {
 
 // NEUEN SPIELER ANLEGEN
 
-$("#neuerSpieler").click(function (e) {
+$("#neuerSpieler").click(function(e) {
     e.preventDefault();
     person.name = $("#spieler-name").val();
     if (person.name.length < 3) {
@@ -79,30 +79,30 @@ $("#neuerSpieler").click(function (e) {
     } else {
         person.status = 'inaktiv';
         person.points = gamemode;
-        $.when(createPlayer(person)).done(function (data) {
+        $.when(createPlayer(person)).done(function(data) {
             reload();
         });
     }
 });
 
 // empty value on modal open
-$('#spielerModal').on('hidden.bs.modal', function (e) {
+$('#spielerModal').on('hidden.bs.modal', function(e) {
     $(this).find("input,textarea,select").val('').end();
 });
 
 function select(btn) {
     //find selected player by btn.id
-    $.each(allPlayers, function (index) {
-        if (allPlayers[index].id == btn.id) {
-            player = allPlayers[index];
-        }
-    })
-    //deletebutton is pressed
-    //delete player instead of select this one
+    $.each(allPlayers, function(index) {
+            if (allPlayers[index].id == btn.id) {
+                player = allPlayers[index];
+            }
+        })
+        //deletebutton is pressed
+        //delete player instead of select this one
     if (deletemode === 1) {
         console.log("Lösche Spieler " + btn.id);
         setDelete();
-        $.when(deleteCall(player)).done(function (data) {
+        $.when(deleteCall(player)).done(function(data) {
             reload();
         });
     } else {
@@ -117,7 +117,7 @@ function select(btn) {
         player.active = true;
         player.order = order;
 
-        $.when(update(player)).done(function (data) {
+        $.when(update(player)).done(function(data) {
             $("#" + data.id + " .badge.badge-light").text(data.order);
             $("#" + data.id).attr("disabled", true);
             activecount += 1;
@@ -126,7 +126,7 @@ function select(btn) {
     }
 }
 
-function newPlayerBtn(){
+function newPlayerBtn() {
     //reset delete mode if chosen before
     resetDelete();
     resetGame();
@@ -144,7 +144,7 @@ function setDelete() {
     }
 }
 
-function resetDelete(){
+function resetDelete() {
     $("#title").html("Spieler auswählen: ");
     $('#playerlist :button').css('background-color', '');
     deletemode = 0;
@@ -155,7 +155,7 @@ function resetGame() {
     //reset backend via api
     reset();
     //also deactivate players in the frontend otherwise, player is active=true when gamemode (301/501) is changed 
-    $.each(allPlayers, function (index) {
+    $.each(allPlayers, function(index) {
         allPlayers[index].active = false;
     });
     //reset frontend
