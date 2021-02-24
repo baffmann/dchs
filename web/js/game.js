@@ -208,7 +208,8 @@ function last(playerid) {
             if (allPlayers[index].id == playerid) {
                 currentplayer = allPlayers[index];
                 $('#player' + currentplayer.order).css("background-color", "#5CABFF");
-                if (backupScore[0] != undefined) {
+                //also check if round is defined, otherwise this player is already finished
+                if (backupScore[0] != undefined && currentplayer.score[round] != undefined) {
                     console.log("Restoring points from backup");
                     currentplayer.points = backupScore[0].points;
                     currentplayer.tries = backupScore[0].tries;
