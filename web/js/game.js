@@ -260,6 +260,9 @@ function last(playerid) {
 function next(playerid) {
     //check if next was called from back
     $('#backbtn').html("Zurück");
+    $('.pointbtn').attr("disabled", true);
+    $('#doublebtn').attr("disabled", true);
+    $('#triplebtn').attr("disabled", true);
 
     displayRound();
 
@@ -295,7 +298,7 @@ function next(playerid) {
                 }
                 next(playerlist[index]);
             } else {
-                console.log("Pushing new score array")
+                //console.log("Pushing new score array")
                 var scores = [];
                 var rounds = [];
                 if (currentplayer.score == null) {
@@ -306,6 +309,9 @@ function next(playerid) {
                     //array is already defined when delete button was used
                     currentplayer.score.push(scores);
                 }
+                $('.pointbtn').attr("disabled", false);
+                $('#doublebtn').attr("disabled", false);
+                $('#triplebtn').attr("disabled", false);
                 displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
                 $("#spielername").html(currentplayer.name);
             }
@@ -349,8 +355,8 @@ function displayPoints(order, points, avg) {
 function points(btn) {
     $('#backbtn').html("<img src='images/trash.png' alt='trash' height='60' width='60'>");
     $('#backbtn').attr("disabled", false);
-    console.log("points");
-    console.log(currentplayer.score)
+    //console.log("points");
+    //console.log(currentplayer.score)
 
     // if double --> double = 2 // triple = 1
     // if triple --> double = 1 // triple = 3
@@ -359,8 +365,9 @@ function points(btn) {
     backupScore = [];
     var dart = 1;
 
-    //set score for current throw
 
+
+    //set score for current throw
     if (typeof currentplayer.score[round][0] == 'undefined') {
         currentplayer.score[round][0] = parseInt(totalscore);
         //console.log("first dart");

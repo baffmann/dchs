@@ -39,8 +39,6 @@ func player(w http.ResponseWriter, r *http.Request) {
 		tmpPlayers = append(tmpPlayers, p)
 	}
 
-	fmt.Println("Length of tmpplayers array in player api: ", len(tmpPlayers), cap(tmpPlayers))
-
 	sort.Slice(tmpPlayers, func(i, j int) bool {
 		return tmpPlayers[i].Order < tmpPlayers[j].Order
 	})

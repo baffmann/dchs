@@ -23,10 +23,9 @@ func readPlayers() {
 		players = append(players, playerFound)
 	}
 	if tmpLength != len(players) {
-		fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VALUE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VALUE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(players), cap(players))
 	}
 	tmpLength = len(players)
-	fmt.Println("Length of players array after readplayer: ", len(players), cap(players))
 }
 
 func readSettings() {
