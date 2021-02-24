@@ -11,7 +11,10 @@ var db *scribble.Driver
 
 func readPlayers() {
 	players = nil
-	records, _ := db.ReadAll("players")
+	records, err := db.ReadAll("players")
+	if err != nil {
+		fmt.Println("Error reading players: ", err)
+	}
 	for _, f := range records {
 		playerFound := Player{}
 		if err := json.Unmarshal([]byte(f), &playerFound); err != nil {
@@ -19,6 +22,7 @@ func readPlayers() {
 		}
 		players = append(players, playerFound)
 	}
+	fmt.Println("Length of players array after readplayer: ", len(players), cap(players))
 }
 
 func readSettings() {
