@@ -19,10 +19,13 @@ func delete(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	readPlayers()
-	if err := deletePlayer(tmpPlayer.Name, tmpPlayer); err != nil {
+	if err := db.Write("archive", tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
+	if err := db.Delete("players", tmpPlayer.Name); err != nil {
+		fmt.Println("Error while deleting player", err)
+	}
+	readArchive()
 	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
 	json.NewEncoder(w).Encode(tmpPlayer)
 }
@@ -38,7 +41,6 @@ func player(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Length of tmpplayers array in player api: ", len(tmpPlayers), cap(tmpPlayers))
 
-
 	sort.Slice(tmpPlayers, func(i, j int) bool {
 		return tmpPlayers[i].Order < tmpPlayers[j].Order
 	})
@@ -51,14 +53,12 @@ func create(w http.ResponseWriter, r *http.Request) {
 	var player Player
 	json.NewDecoder(r.Body).Decode(&player)
 	player.Name = strings.Title(strings.ToLower(player.Name))
-	readPlayers()
 	//return if player exists
 	for _, f := range players {
 		if player.Name == f.Name {
 			return
 		}
 	}
-	readArchive()
 	for _, arcPlayer := range archive {
 		if player.Name == arcPlayer.Name {
 			player = arcPlayer
@@ -75,7 +75,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 	}
 	player.ID = id + 1
 
-	if err := updatePlayer(player.Name, player); err != nil {
+	if err := db.Write("players", player.Name, player); err != nil {
 		fmt.Println("Error creating new player ", player.Name, " :", err)
 		return
 	}
@@ -108,8 +108,7 @@ func update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	readPlayers()
-	if err := updatePlayer(tmpPlayer.Name, tmpPlayer); err != nil {
+	if err := db.Write("players", tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error", err)
 	}
 	json.NewEncoder(w).Encode(tmpPlayer)

@@ -10,11 +10,11 @@ import (
 var db *scribble.Driver
 
 func readPlayers() {
-	players = nil
 	records, err := db.ReadAll("players")
 	if err != nil {
 		fmt.Println("Error reading players: ", err)
 	}
+	players = nil
 	for _, f := range records {
 		playerFound := Player{}
 		if err := json.Unmarshal([]byte(f), &playerFound); err != nil {
@@ -22,6 +22,10 @@ func readPlayers() {
 		}
 		players = append(players, playerFound)
 	}
+	if tmpLength != len(players) {
+		fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VALUE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	}
+	tmpLength = len(players)
 	fmt.Println("Length of players array after readplayer: ", len(players), cap(players))
 }
 
@@ -46,21 +50,4 @@ func readArchive() {
 		}
 		archive = append(archive, playerFound)
 	}
-}
-
-func updatePlayer(name string, player Player) (err error) {
-	if err := db.Write("players", name, player); err != nil {
-		return err
-	}
-	return nil
-}
-
-func deletePlayer(name string, player Player) (err error) {
-	if err := db.Write("archive", name, player); err != nil {
-		return err
-	}
-	if err := db.Delete("players", name); err != nil {
-		return err
-	}
-	return nil
 }
