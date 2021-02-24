@@ -70,7 +70,8 @@ $("#gamemodebtn :input").change(function() {
 });
 
 // NEUEN SPIELER ANLEGEN
-
+//ToDo Neuer Spieler wird mit 501 angelegt
+//Gamemode bleibt auf 301 stehen wenn vorher so ausgewählt
 $("#neuerSpieler").click(function(e) {
     e.preventDefault();
     person.name = $("#spieler-name").val();
@@ -78,7 +79,7 @@ $("#neuerSpieler").click(function(e) {
         alert("Bitte mehr als 3 Zeichen eingeben");
     } else {
         person.status = 'inaktiv';
-        person.points = gamemode;
+        person.points = 501;
         $.when(createPlayer(person)).done(function(data) {
             reload();
         });
