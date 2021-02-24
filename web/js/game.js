@@ -295,6 +295,7 @@ function next(playerid) {
                 }
                 next(playerlist[index]);
             } else {
+                console.log("Pushing new score array")
                 var scores = [];
                 var rounds = [];
                 if (currentplayer.score == null) {
