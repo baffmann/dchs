@@ -43,10 +43,12 @@ var players []Player
 var archive []Player
 var version string
 var settings GameSettings
+var tmpLength int
 
 func initGame() {
 	readPlayers()
-
+	readArchive()
+	tmpLength = 0
 	for _, item := range players {
 		if item.Points != 301 {
 			item.Points = 501
@@ -58,7 +60,9 @@ func initGame() {
 		item.Score = nil
 		item.Tries = 0
 		item.Ranking = 99
-		updatePlayer(item.Name, item)
+		if err := db.Write("players", item.Name, item); err != nil {
+			fmt.Println("Error", err)
+		}
 	}
 }
 
