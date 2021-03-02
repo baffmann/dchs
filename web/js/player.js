@@ -1,15 +1,17 @@
 $(document).ready(function() {
     initialSettings();
+    $.when(getSettings()).done(function(data) {
+        gamesettings = data;
+    });
     reload();
 });
 
 var person = {
     name: '',
-    status: '',
     points: '',
 };
 
-var gamemode = 501;
+var gamesettings;
 var playercount = 0;
 var activecount = 0;
 var deletemode = 0;
@@ -61,12 +63,12 @@ function checkPlayerCount() {
 }
 
 $("#gamemodebtn :input").change(function() {
-    gamemode = $("input[name='options']:checked").val();
-    gamemode = parseInt(gamemode);
+    gamesettings.x01.points = parseInt($("input[name='options']:checked").val());
     $.each(allPlayers, function(index) {
-        allPlayers[index].points = gamemode;
+        allPlayers[index].points = gamesettings.x01.points;
         update(allPlayers[index]);
     })
+    updateSettings(gamesettings);
 });
 
 // NEUEN SPIELER ANLEGEN
@@ -78,8 +80,7 @@ $("#neuerSpieler").click(function(e) {
     if (person.name.length < 3) {
         alert("Bitte mehr als 3 Zeichen eingeben");
     } else {
-        person.status = 'inaktiv';
-        person.points = 501;
+        person.points = gamesettings.x01.points;
         $.when(createPlayer(person)).done(function(data) {
             reload();
         });

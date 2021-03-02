@@ -11,7 +11,7 @@ function createPlayer(player) {
         data: JSON.stringify(player),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        error: function (result) {
+        error: function(result) {
             alert('Spieler konnte nicht angelegt werden.');
         }
     })
@@ -56,10 +56,18 @@ function reset() {
     })
 };
 
+function getSettings() {
+    return $.ajax({
+        type: "POST",
+        url: "/api/settings",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    })
+};
+
 function quitGame() {
     $.ajax({
         type: "POST",
         url: "/api/quitGame",
     })
 };
-

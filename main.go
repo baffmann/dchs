@@ -31,35 +31,41 @@ type Stats struct {
 	OneHundredEighty int     `json:"onehundredeighty"`
 }
 
-type GameSettings struct {
-	Version    string `json:"version"`
-	Title      string `json:"title"`
-	Connection bool   `json:"connection"`
+type X01Setting struct {
+	Points int `json:"points"`
+	//Gamemode int `json:"version"`
 }
 
-var workingDir, dbDir string
+type GameSettings struct {
+	Version    string     `json:"version"`
+	Title      string     `json:"title"`
+	Connection bool       `json:"connection"`
+	X01        X01Setting `json:"x01"`
+}
+
+var workingDir, dbDir, webPath string
 
 var players []Player
 var archive []Player
 var version string
 var settings GameSettings
 
-func initGame() {
-	readPlayers()
-	readArchive()
+func resetPlayers() {
 	for _, item := range players {
-		item.Points = 501
-		item.Active = false
-		item.Finished = false
+		players.Points = settings.X01.Points
+		players.Active = false
+		players.Finished = false
 		item.Order = 0
 		item.Average = 0
 		item.Score = nil
 		item.Tries = 0
 		item.Ranking = 99
-		if err := db.Write("players", item.Name, item); err != nil {
+		/* 		if err := db.Write("players", item.Name, item); err != nil {
 			fmt.Println("Error", err)
-		}
+		} */
 	}
+
+	fmt.Println(players)
 }
 
 func getEnv() {
@@ -93,6 +99,7 @@ func setSettings() {
 		settings.Connection = true
 	}
 	updateSettings(settings)
+	settings.X01.Points = 501
 }
 
 func connected() (ok bool) {
@@ -102,24 +109,27 @@ func connected() (ok bool) {
 	}
 	return true
 }
-
-func main() {
-	fmt.Println("Welcome to DCHS Darts Scoreboard!")
-
+func init() {
 	getEnv()
 
-	webPath := workingDir + "/web/"
+	webPath = workingDir + "/web/"
 	fmt.Println("Website is hosted at " + webPath)
 	var err error
-
 	db, err = scribble.New(dbDir, nil)
 	if err != nil {
 		fmt.Println("Error creating database: ", err)
 	}
 	fmt.Println("Database initiated at " + dbDir)
+
 	setSettings()
 
-	initGame()
+	resetPlayers()
+	//readArchive()
+
+	readPlayers()
+}
+func main() {
+	fmt.Println("Welcome to DCHS Darts Scoreboard!")
 
 	r := mux.NewRouter()
 
@@ -129,12 +139,13 @@ func main() {
 	r.HandleFunc("/api/player", create).Methods("POST")
 	r.HandleFunc("/api/reset", resetGame).Methods("POST")
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
+	r.HandleFunc("/api/settings", getSetting).Methods("POST")
 	r.HandleFunc("/api/updateSettings", newSettings).Methods("POST")
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 
 	fmt.Println("Starting webserver at port 64760")
-	err = http.ListenAndServe(":64760", r)
+	err := http.ListenAndServe(":64760", r)
 	if err != nil {
 		fmt.Println("Error starting webserver: ", err)
 		os.Exit(1)

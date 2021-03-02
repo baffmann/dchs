@@ -1,24 +1,25 @@
-$(document).ready(function () {
-    $.when(reset()).done(function (data) {
+$(document).ready(function() {
+    reset();
+    $.when(getSettings()).done(function(data) {
         gamesettings = data;
         $('#mainMenuTitle').html(data.title);
     });
 });
 
-var gamesettings
+var gamesettings;
 
-$("#neuerTitel").click(function (e) {
+$("#neuerTitel").click(function(e) {
     e.preventDefault();
     gamesettings.title = $("#title").val();
-    $.when(updateSettings(gamesettings)).done(function (data) {
+    $.when(updateSettings(gamesettings)).done(function(data) {
         $('#mainMenuTitle').html(data.title);
         $('#setMainMenuTitle').html(data.title);
     });
 });
 
-$("#settings").click(function (e) {
+$("#settings").click(function(e) {
     e.preventDefault();
-    $.when(reset()).done(function (data) {
+    $.when(reset()).done(function(data) {
         gamesettings = data;
     });
     if (gamesettings.connection) {

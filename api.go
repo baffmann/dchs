@@ -25,15 +25,12 @@ func delete(w http.ResponseWriter, r *http.Request) {
 	if err := db.Delete("players", tmpPlayer.Name); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
-	readArchive()
+	//readArchive()
 	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
 	json.NewEncoder(w).Encode(tmpPlayer)
 }
 
-func player(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	readPlayers()
-
+func sortPlayers() []Player {
 	var tmpPlayers []Player
 	for _, p := range players {
 		tmpPlayers = append(tmpPlayers, p)
@@ -43,7 +40,13 @@ func player(w http.ResponseWriter, r *http.Request) {
 		return tmpPlayers[i].Order < tmpPlayers[j].Order
 	})
 
-	json.NewEncoder(w).Encode(tmpPlayers)
+	return tmpPlayers
+}
+
+func player(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	sortedPlayers := sortPlayers()
+	json.NewEncoder(w).Encode(sortedPlayers)
 }
 
 func create(w http.ResponseWriter, r *http.Request) {
@@ -83,7 +86,11 @@ func create(w http.ResponseWriter, r *http.Request) {
 }
 
 func resetGame(w http.ResponseWriter, r *http.Request) {
-	initGame()
+	resetPlayers()
+	json.NewEncoder(w).Encode("Game initialized")
+}
+
+func getSetting(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(settings)
 }
 
@@ -106,10 +113,20 @@ func update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+
+	for _, f := range players {
+		if tmpPlayer.ID == f.ID {
+			f = tmpPlayer
+		}
+	}
+
+	sortedPlayers := sortPlayers()
+
+	json.NewEncoder(w).Encode(sortedPlayers)
+
 	if err := db.Write("players", tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error", err)
 	}
-	json.NewEncoder(w).Encode(tmpPlayer)
 }
 
 func newSettings(w http.ResponseWriter, r *http.Request) {
