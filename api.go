@@ -105,7 +105,7 @@ func startGame(w http.ResponseWriter, r *http.Request) {
 
 func resetGame(w http.ResponseWriter, r *http.Request) {
 	resetPlayers()
-	json.NewEncoder(w).Encode("Game initialized")
+	json.NewEncoder(w).Encode(settings)
 }
 
 func getSetting(w http.ResponseWriter, r *http.Request) {
@@ -150,7 +150,7 @@ func newSettings(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&settings)
 	if err != nil {
-		panic(err)
+		fmt.Println(r.Body, err)
 	}
 	if err := updateSettings(settings); err != nil {
 		fmt.Println("Error", err)
