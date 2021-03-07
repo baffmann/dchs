@@ -1,13 +1,12 @@
 $(document).ready(function() {
     $.when(startGame()).done(function(data) {
         $.each(data, function(index) {
-            if (data[index].active == true) {
-                $('#player' + data[index].order).removeClass("invisible");
-                $('#list-player-' + data[index].order).html(data[index].name);
-                $('#' + data[index].order + '-points').html(data[index].points);
-                playerlist.push(data[index].id);
-                playercount += 1;
-            }
+            $('#player' + data[index].order).removeClass("invisible");
+            $('#list-player-' + data[index].order).html(data[index].name);
+            $('#' + data[index].order + '-points').html(data[index].points);
+            playerlist.push(data[index].id);
+            playercount += 1;
+
         });
         $('#shot-alert').hide();
         $('#backbtn').attr("disabled", true);

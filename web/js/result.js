@@ -5,20 +5,20 @@ $(document).ready(function() {
 function calcResult() {
     $.when(getPlayers()).done(function(data) {
         allPlayers = data;
-        var activePlayers = [];
+        //var activePlayers = [];
         var highestTries = 0;
         $.each(data, function(index) {
             //sort active players
-            if (data[index].active == true) {
-                activePlayers.push(data[index]);
-                //needed to calculate amount of rounds played
-                // with Math.ceil(highestTries / 3);
-                if (data[index].tries > highestTries) {
-                    highestTries = data[index].tries;
-                }
+            //if (data[index].active == true) {
+            //activePlayers.push(data[index]);
+            //needed to calculate amount of rounds played
+            // with Math.ceil(highestTries / 3);
+            if (data[index].tries > highestTries) {
+                highestTries = data[index].tries;
             }
+            //}
         });
-        activePlayers = activePlayers.sort(resultsSort);
+        allPlayers = allPlayers.sort(resultsSort);
 
         roundsplayed = Math.ceil(highestTries / 3);
         var bestrnd = 0;
@@ -40,31 +40,36 @@ function calcResult() {
             '</tr>');
 
 
-        $.each(activePlayers, function(index) {
+        $.each(allPlayers, function(index) {
 
-            if (activePlayers[index].ranking == 1) {
-                $('#winner').html(activePlayers[index].name);
+            if (allPlayers[index].ranking == 1) {
+                $('#winner').html(allPlayers[index].name);
             }
 
             //check for best average from all finished players (points == 0)
-            if (activePlayers[index].avg > bestavg && activePlayers[index].points == 0) {
-                bestavg = activePlayers[index].avg;
-                bestavgPlayer = activePlayers[index].name;
+            if (allPlayers[index].avg > bestavg && allPlayers[index].points == 0) {
+                bestavg = allPlayers[index].avg;
+                bestavgPlayer = allPlayers[index].name;
             }
 
             for (var i = 0; i < roundsplayed; i++) {
                 var roundresult = 0;
-                if (activePlayers[index].score[i] != undefined) {
+                //catch if player has no score at all // game was interrupted
+                if (allPlayers[index].score == null) {
+                    bestrndPlayer = 0;
+                    break;
+                }
+                if (allPlayers[index].score[i] != undefined) {
                     for (var j = 0; j < 3; j++) {
-                        if (activePlayers[index].score[i][j] != undefined) {
-                            roundresult += activePlayers[index].score[i][j];
+                        if (allPlayers[index].score[i][j] != undefined) {
+                            roundresult += allPlayers[index].score[i][j];
                         }
                     }
                 }
 
                 if (roundresult > bestrnd) {
                     bestrnd = roundresult;
-                    bestrndName = activePlayers[index].name;
+                    bestrndName = allPlayers[index].name;
                 }
                 if (roundresult > bestrndPlayer) {
                     bestrndPlayer = roundresult;
@@ -72,26 +77,26 @@ function calcResult() {
 
                 //check for 180,140,100
                 if (roundresult >= 100 && roundresult < 140) {
-                    activePlayers[index].stats.onehundred += 1;
+                    allPlayers[index].stats.onehundred += 1;
                 } else if (roundresult >= 140 && roundresult < 180) {
-                    activePlayers[index].stats.onehundred += 1;
-                    activePlayers[index].stats.onehundredforty += 1;
+                    allPlayers[index].stats.onehundred += 1;
+                    allPlayers[index].stats.onehundredforty += 1;
                 } else if (roundresult == 180) {
-                    activePlayers[index].stats.onehundred += 1;
-                    activePlayers[index].stats.onehundredforty += 1;
-                    activePlayers[index].stats.onehundredeighty += 1;
+                    allPlayers[index].stats.onehundred += 1;
+                    allPlayers[index].stats.onehundredforty += 1;
+                    allPlayers[index].stats.onehundredeighty += 1;
                 }
             }
 
-            if (activePlayers[index].avg > activePlayers[index].stats.bestavg && activePlayers[index].points == 0) {
-                activePlayers[index].stats.bestavg = activePlayers[index].avg;
+            if (allPlayers[index].avg > allPlayers[index].stats.bestavg && allPlayers[index].points == 0) {
+                allPlayers[index].stats.bestavg = allPlayers[index].avg;
             }
 
-            activePlayers[index].stats.gamesplayed += 1;
+            allPlayers[index].stats.gamesplayed += 1;
 
-            update(activePlayers[index]);
+            update(allPlayers[index]);
 
-            createResultTable(activePlayers[index], bestrndPlayer)
+            createResultTable(allPlayers[index], bestrndPlayer)
 
             //reset bestroundplayer
             bestrndPlayer = 0;
@@ -106,32 +111,32 @@ function calcResult() {
 }
 
 
-function createResultTable(activePlayer, bestroundplayer) {
-    console.log(activePlayer)
+function createResultTable(player, bestroundplayer) {
+    console.log(player)
     var playerinfo = '<tr><td>';
-    playerinfo += activePlayer.name;
+    playerinfo += player.name;
     playerinfo += '</td><td>';
-    if (activePlayer.points != 0) {
+    if (player.points != 0) {
         playerinfo += '(';
-        playerinfo += activePlayer.avg;
+        playerinfo += player.avg;
         playerinfo += ')';
     } else {
-        playerinfo += activePlayer.avg;
+        playerinfo += player.avg;
     }
     playerinfo += '</td><td>';
     playerinfo += bestroundplayer;
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.tries;
+    playerinfo += player.tries;
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.stats.gamesplayed;
+    playerinfo += player.stats.gamesplayed;
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.stats.onehundred; // --> Beste Runde
+    playerinfo += player.stats.onehundred; // --> Beste Runde
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.stats.onehundredforty; // --> Beste Runde
+    playerinfo += player.stats.onehundredforty; // --> Beste Runde
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.stats.onehundredeighty; // --> Beste Runde
+    playerinfo += player.stats.onehundredeighty; // --> Beste Runde
     playerinfo += '</td><td>';
-    playerinfo += activePlayer.stats.bestavg;
+    playerinfo += player.stats.bestavg;
     playerinfo += '</td></tr>';
     $('#infolist tbody').append(playerinfo);
 }
