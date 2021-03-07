@@ -46,26 +46,26 @@ type GameSettings struct {
 var workingDir, dbDir, webPath string
 
 var players []Player
-var archive []Player
 var version string
 var settings GameSettings
 
+//only called on menu page, resets players array and updates database
 func resetPlayers() {
-	for _, item := range players {
-		players.Points = settings.X01.Points
-		players.Active = false
-		players.Finished = false
-		item.Order = 0
-		item.Average = 0
-		item.Score = nil
-		item.Tries = 0
-		item.Ranking = 99
-		/* 		if err := db.Write("players", item.Name, item); err != nil {
+	readPlayers()
+	for i := range players {
+		players[i].Points = settings.X01.Points
+		players[i].Active = false
+		players[i].Finished = false
+		players[i].Order = 0
+		players[i].Average = 0
+		players[i].Score = nil
+		players[i].Tries = 0
+		players[i].Ranking = 99
+		if err := db.Write("players", players[i].Name, players[i]); err != nil {
 			fmt.Println("Error", err)
-		} */
+		}
 	}
-
-	fmt.Println(players)
+	//fmt.Println(players)
 }
 
 func getEnv() {
@@ -124,10 +124,8 @@ func init() {
 	setSettings()
 
 	resetPlayers()
-	//readArchive()
-
-	readPlayers()
 }
+
 func main() {
 	fmt.Println("Welcome to DCHS Darts Scoreboard!")
 
@@ -141,6 +139,7 @@ func main() {
 	r.HandleFunc("/api/quitGame", quitGame).Methods("POST")
 	r.HandleFunc("/api/settings", getSetting).Methods("POST")
 	r.HandleFunc("/api/updateSettings", newSettings).Methods("POST")
+	r.HandleFunc("/api/startGame", startGame).Methods("POST")
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(webPath)))
 

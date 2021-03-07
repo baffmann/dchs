@@ -21,7 +21,7 @@ var order = 1;
 function initialSettings() {
     order = 1;
     activecount = 0;
-    $("#startGame").attr("disabled", true);
+    $("#start").attr("disabled", true);
     $("#zuruecksetzen").attr("disabled", true);
     $("#title").html("Spieler auswählen: ");
     $(".playerbtn .badge.badge-light").text('');
@@ -113,13 +113,14 @@ function select(btn) {
             alert("Maximale Spielerzahl erreicht!");
             return;
         }
-        $("#startGame").attr("disabled", false);
+        $("#start").attr("disabled", false);
         $("#zuruecksetzen").attr("disabled", false);
 
         player.active = true;
         player.order = order;
 
         $.when(update(player)).done(function(data) {
+            console.log("Update done, order: ", data.order);
             $("#" + data.id + " .badge.badge-light").text(data.order);
             $("#" + data.id).attr("disabled", true);
             activecount += 1;

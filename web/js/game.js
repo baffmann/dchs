@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $.when(getPlayers()).done(function(data) {
+    $.when(startGame()).done(function(data) {
         $.each(data, function(index) {
             if (data[index].active == true) {
                 $('#player' + data[index].order).removeClass("invisible");
@@ -261,9 +261,6 @@ function last(playerid) {
 function next(playerid) {
     //check if next was called from back
     $('#backbtn').html("Zurück");
-    $('.pointbtn').attr("disabled", true);
-    $('#doublebtn').attr("disabled", true);
-    $('#triplebtn').attr("disabled", true);
 
     displayRound();
 
@@ -310,9 +307,6 @@ function next(playerid) {
                     //array is already defined when delete button was used
                     currentplayer.score.push(scores);
                 }
-                $('.pointbtn').attr("disabled", false);
-                $('#doublebtn').attr("disabled", false);
-                $('#triplebtn').attr("disabled", false);
                 displayPoints(currentplayer.order, currentplayer.points, currentplayer.avg);
                 $("#spielername").html(currentplayer.name);
             }
@@ -450,14 +444,6 @@ function points(btn) {
     }
 
     currentplayer.avg = calcAvg();
-
-    // //calculating bestround
-    // if (currentplayer.score[round][0] != 'undefined' && currentplayer.score[round][1] != 'undefined' && currentplayer.score[round][2] != 'undefined') {
-    // 	roundscore = currentplayer.score[round][0] + currentplayer.score[round][1] + currentplayer.score[round][2]
-    // }
-    // if (roundscore > currentplayer.stats.bestscore) {
-    // 	currentplayer.stats.bestscore = roundscore;
-    // }
 
     $.when(update(currentplayer)).done(function() {
         updateList();

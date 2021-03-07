@@ -65,6 +65,14 @@ function getSettings() {
     })
 };
 
+function startGame() {
+    console.log("Startgame called");
+    return $.ajax({
+        type: "POST",
+        url: "/api/startGame",
+    })
+};
+
 function quitGame() {
     $.ajax({
         type: "POST",

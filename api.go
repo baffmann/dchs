@@ -19,15 +19,21 @@ func delete(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	if err := db.Write("archive", tmpPlayer.Name, tmpPlayer); err != nil {
-		fmt.Println("Error while deleting player", err)
+
+	tmp := players[:0]
+	for i := range players {
+		if players[i].ID != tmpPlayer.ID {
+			tmp = append(tmp, players[i])
+		}
 	}
+	players = tmp
+
+	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
+	json.NewEncoder(w).Encode(tmpPlayer)
+
 	if err := db.Delete("players", tmpPlayer.Name); err != nil {
 		fmt.Println("Error while deleting player", err)
 	}
-	//readArchive()
-	fmt.Println("Player ", tmpPlayer.Name, " deleted!")
-	json.NewEncoder(w).Encode(tmpPlayer)
 }
 
 func sortPlayers() []Player {
@@ -60,11 +66,6 @@ func create(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	for _, arcPlayer := range archive {
-		if player.Name == arcPlayer.Name {
-			player = arcPlayer
-		}
-	}
 
 	//get highest id
 	//Todo: Sort and choose highest free id instead of highest id
@@ -76,13 +77,30 @@ func create(w http.ResponseWriter, r *http.Request) {
 	}
 	player.ID = id + 1
 
+	players = append(players, player)
+
+	fmt.Println("Player ", player.Name, " with id ", player.ID, " created!")
+
+	json.NewEncoder(w).Encode(&player)
+
 	if err := db.Write("players", player.Name, player); err != nil {
 		fmt.Println("Error creating new player ", player.Name, " :", err)
 		return
 	}
-	fmt.Println("Player ", player.Name, " with id ", player.ID, " created!")
+}
 
-	json.NewEncoder(w).Encode(&player)
+func startGame(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	tmp := players[:0]
+	for i := range players {
+		if players[i].Active == true {
+			tmp = append(tmp, players[i])
+		}
+	}
+	players = tmp
+	//fmt.Println("New Playerlist: ", players)
+	sortedPlayers := sortPlayers()
+	json.NewEncoder(w).Encode(sortedPlayers)
 }
 
 func resetGame(w http.ResponseWriter, r *http.Request) {
@@ -114,15 +132,13 @@ func update(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	for _, f := range players {
-		if tmpPlayer.ID == f.ID {
-			f = tmpPlayer
+	for i := range players {
+		if tmpPlayer.ID == players[i].ID {
+			players[i] = tmpPlayer
+			json.NewEncoder(w).Encode(players[i])
+			break
 		}
 	}
-
-	sortedPlayers := sortPlayers()
-
-	json.NewEncoder(w).Encode(sortedPlayers)
 
 	if err := db.Write("players", tmpPlayer.Name, tmpPlayer); err != nil {
 		fmt.Println("Error", err)

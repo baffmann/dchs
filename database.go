@@ -34,15 +34,3 @@ func updateSettings(setting GameSettings) (err error) {
 	}
 	return nil
 }
-
-func readArchive() {
-	archive = nil
-	records, _ := db.ReadAll("archive")
-	for _, f := range records {
-		playerFound := Player{}
-		if err := json.Unmarshal([]byte(f), &playerFound); err != nil {
-			fmt.Println("Error unmarshaling player database: ", err)
-		}
-		archive = append(archive, playerFound)
-	}
-}
