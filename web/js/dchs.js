@@ -1,8 +1,10 @@
 $(document).ready(function() {
-    reset();
     $.when(getSettings()).done(function(data) {
         gamesettings = data;
         $('#mainMenuTitle').html(data.title);
+        gamesettings.x01.points = 501;
+        updateSettings(gamesettings);
+        reset();
     });
 });
 

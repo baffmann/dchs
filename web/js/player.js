@@ -72,8 +72,6 @@ $("#gamemodebtn :input").change(function() {
 });
 
 // NEUEN SPIELER ANLEGEN
-//ToDo Neuer Spieler wird mit 501 angelegt
-//Gamemode bleibt auf 301 stehen wenn vorher so ausgewählt
 $("#neuerSpieler").click(function(e) {
     e.preventDefault();
     person.name = $("#spieler-name").val();
