@@ -21,6 +21,12 @@ type Player struct {
 	Tries       int      `json:"tries"`
 	Ranking     int      `json:"ranking"`
 	PlayerStats Stats    `json:"stats"`
+	Cricket     Cricket  `json:"cricket"`
+}
+
+type Cricket struct {
+	Points int `json:"points"`
+	Hits   int `json:"hits"`
 }
 
 type Stats struct {
@@ -29,6 +35,7 @@ type Stats struct {
 	OneHundred       int     `json:"onehundred"`
 	OneHundredForty  int     `json:"onehundredforty"`
 	OneHundredEighty int     `json:"onehundredeighty"`
+	BestCricket      int     `json:"bestcricket"`
 }
 
 type X01Setting struct {
@@ -54,6 +61,8 @@ func resetPlayers() {
 	readPlayers()
 	for i := range players {
 		players[i].Points = settings.X01.Points
+		players[i].Cricket.Points = 0
+		players[i].Cricket.Hits = 0
 		players[i].Active = false
 		players[i].Finished = false
 		players[i].Order = 0
