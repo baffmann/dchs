@@ -34,12 +34,11 @@ function doubleActive() {
     if (double === 2) {
         double = 1;
         $("#doublebtn").removeClass("active");
-        $('#triplebtn').attr("disabled", false);
         $('.pointbtn').css("background", "");
     } else {
+        triple = 1;
         double = 2;
         $('.pointbtn').css("background", "rgb(105, 184, 3)");
-        $('#triplebtn').attr("disabled", true);
     }
 }
 
@@ -48,13 +47,12 @@ function tripleActive() {
         triple = 1;
         $("#triplebtn").removeClass("active");
         $('.pointbtn[value="25"]').attr("disabled", false);
-        $('#doublebtn').attr("disabled", false);
         $('.pointbtn').css("background", "");
     } else {
+        double = 1; //in case both buttons are hit
         triple = 3;
         $('.pointbtn').css("background", "rgb(190, 63, 3)");
         $('.pointbtn[value="25"]').attr("disabled", true);
-        $('#doublebtn').attr("disabled", true);
     }
 }
 
@@ -138,6 +136,7 @@ function back() {
     if (round == 0 && index == 0 && typeof currentplayer.score[round][0] == 'undefined') {
         return;
     }
+    resetMultiplier();
 
     //Switch back to last player if current player has no valid throw
     //console.log(typeof currentplayer.score[round][0]);
@@ -161,8 +160,6 @@ function back() {
 
 function removeLastThrow() {
     $('.pointbtn').attr("disabled", false);
-    $('#doublebtn').attr("disabled", false);
-    $('#triplebtn').attr("disabled", false);
 
     if (typeof currentplayer.score[round][2] != 'undefined') {
         currentplayer.points += currentplayer.score[round][2];
@@ -501,10 +498,8 @@ function checkShot() {
 function resetMultiplier() {
     double = 1;
     $("#doublebtn").removeClass("active");
-    $('#doublebtn').attr("disabled", false);
     triple = 1;
     $("#triplebtn").removeClass("active");
-    $('#triplebtn').attr("disabled", false);
     $('.pointbtn[value="25"]').attr("disabled", false);
     $('.pointbtn').css("background", "");
 }
